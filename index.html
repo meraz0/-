@@ -3,15 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <!-- PWA Manifest & Theme Color for Offline App -->
-    <meta name="theme-color" content="#0C412E">
     <title>ইসলামিক ইতিহাস ও সহিহ হাদিস - রমজান স্পেশাল</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-
-    <style>
+<style>
         /* =============PREMIUM SCREENSHOT MATCHING THEME ================== */
         :root {
             --bg-golden: #B19656; --card-green: #0C412E; --card-green-light: #12553E;
@@ -797,45 +794,50 @@
     <div id="view-home" class="view-section active">
 
 <!-- PREMIUM LIVE DATE & TIME WIDGET -->
-        <div class="premium-date-widget">
-            <div class="pdw-time-row">
-                <div class="pdw-time-box">
-                    <span class="pdw-time-label">বাংলা সময়</span>
-                    <span class="pdw-time-val num-style" id="live-time-bn">--:--:--</span>
-                </div>
-                <div class="pdw-time-box text-end">
-                    <span class="pdw-time-label">English Time</span>
-                    <span class="pdw-time-val" id="live-time-en">--:--:-- --</span>
-                </div>
-            </div>
-            <hr class="pdw-divider">
-            <div class="pdw-dates-grid">
-                <div class="pdw-date-item">
-                    <i class="fas fa-calendar-alt pdw-icon"></i>
-                    <div>
-                        <span class="pdw-date-label">ইংরেজি তারিখ</span>
-                        <span class="pdw-date-val" id="date-gregorian-en">--</span>
-                    </div>
-                </div>
-                <div class="pdw-date-item">
-                    <i class="fas fa-calendar-day pdw-icon text-warning"></i>
-                    <div>
-                        <span class="pdw-date-label" style="color: var(--text-gold);">বাংলা তারিখ (ইংরেজি সন)</span>
-                        <span class="pdw-date-val text-white" id="date-gregorian-bn">--</span>
-                    </div>
-                </div>
-                <div class="pdw-date-item" style="grid-column: span 2; border-top: 1px dashed var(--border-gold); padding-top: 10px; margin-top: 5px;">
-                    <i class="fas fa-moon pdw-icon text-warning"></i>
-                    <div class="d-flex justify-content-between w-100 align-items-center">
-                        <div>
-                            <span class="pdw-date-label" style="color: var(--text-gold);">ইসলামিক হিজরি তারিখ</span>
-                            <span class="pdw-date-val text-warning fw-bold" id="date-hijri">--</span>
-                        </div>
-                        <span class="badge bg-transparent border border-warning text-warning" style="font-size:10px;">চাঁদ দেখার ওপর নির্ভরশীল</span>
-                    </div>
-                </div>
+<div class="premium-date-widget">
+    <div class="pdw-time-row">
+        <div class="pdw-time-box">
+            <span class="pdw-time-label">বাংলা সময়</span>
+            <span class="pdw-time-val num-style" id="live-time-bn">--:--:--</span>
+        </div>
+        <div class="pdw-time-box text-end">
+            <span class="pdw-time-label">English Time</span>
+            <span class="pdw-time-val" id="live-time-en">--:--:-- --</span>
+        </div>
+    </div>
+    <hr class="pdw-divider">
+    <div class="pdw-dates-grid">
+        <!-- ইংরেজি তারিখ -->
+        <div class="pdw-date-item">
+            <i class="fas fa-calendar-alt pdw-icon"></i>
+            <div>
+                <span class="pdw-date-label">ইংরেজি তারিখ</span>
+                <span class="pdw-date-val" id="date-gregorian-en">--</span>
             </div>
         </div>
+
+        <!-- খাঁটি বাংলা ক্যালেন্ডার (বঙ্গাব্দ) -->
+        <div class="pdw-date-item">
+            <i class="fas fa-sun pdw-icon text-warning"></i>
+            <div>
+                <span class="pdw-date-label" style="color: var(--text-gold);">বাংলা তারিখ (বঙ্গাব্দ)</span>
+                <span class="pdw-date-val text-white" id="date-bangla-bengali">--</span>
+            </div>
+        </div>
+
+        <!-- ইসলামিক হিজরি / আরবি তারিখ -->
+        <div class="pdw-date-item" style="grid-column: span 2; border-top: 1px dashed var(--border-gold); padding-top: 10px; margin-top: 5px;">
+            <i class="fas fa-moon pdw-icon text-warning"></i>
+            <div class="d-flex justify-content-between w-100 align-items-center">
+                <div>
+                    <span class="pdw-date-label" style="color: var(--text-gold);">ইসলামিক হিজরি তারিখ</span>
+                    <span class="pdw-date-val text-warning fw-bold" id="date-hijri">--</span>
+                </div>
+                <span class="badge bg-transparent border border-warning text-warning" style="font-size:10px;">চাঁদ দেখার ওপর নির্ভরশীল</span>
+            </div>
+        </div>
+    </div>
+</div>
         <!-- RAMADAN WIDGET -->
         <div class="home-ramadan-widget" onclick="openCategory('ramadan', 'সাহরী ও ইফতার')">
             <div class="rw-box"><div class="rw-title">আজকের সাহরী</div><div class="rw-time" id="home-sehri">--:--</div></div>
@@ -920,7 +922,8 @@
                 <div class="premium-box-title">যাকাত নিসাব ও হিসাব</div>
                 <div class="premium-box-subtitle">নিসাব পরীক্ষা এবং যাকাত ক্যালকুলেটর</div>
             </div>
-        </div> <!-- premium-box-container কন্টেইনারের শেষ অংশ -->
+        </div>
+ <!-- premium-box-container কন্টেইনারের শেষ অংশ -->
 
         <!-- PREMIUM DONATE BANNER -->
         <div class="premium-donate-banner" onclick="openDonatePage()">
@@ -1978,50 +1981,118 @@
 
         function updateCoinUI() { if(currentUser) { document.getElementById('topCoinBadge').innerHTML = `<i class="fas fa-coins"></i> <span id="userTotalPoints" class="num-style">${toBanglaNumber(currentUser.points)}</span>`; } }
 
-        // === LIVE DATE & TIME ENGINE ===
-        function startLiveDateTime() {
-            function updateDateTime() {
-                const now = new Date();
-                
-                // ১. লাইভ সময় (বাংলা ২৪ ঘণ্টা ফরম্যাট)
-                const optionsTimeBn = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
-                const timeBn = now.toLocaleTimeString('bn-BD', optionsTimeBn);
-                document.getElementById('live-time-bn').innerText = timeBn;
+// === LIVE DATE & TIME ENGINE (বাংলা, ইংরেজি ও হিজরি ক্যালেন্ডার) ===
 
-                // ২. লাইভ সময় (ইংরেজি ১২ ঘণ্টা ফরম্যাট - AM/PM)
-                const optionsTimeEn = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
-                const timeEn = now.toLocaleTimeString('en-US', optionsTimeEn);
-                document.getElementById('live-time-en').innerText = timeEn;
+// ১. বাংলাদেশ বাংলা একাডেমি সংশোধিত ক্যালেন্ডার অনুযায়ী বঙ্গাব্দ কনভার্টার
+function getBanglaDate(date = new Date()) {
+    const banglaMonths = [
+        "বৈশাখ", "জ্যৈষ্ঠ", "আষাঢ়", "শ্রাবণ", "ভাদ্র", "আশ্বিন",
+        "কার্তিক", "অগ্রহায়ণ", "পৌষ", "মাঘ", "ফাল্গুন", "চৈত্র"
+    ];
+    const banglaDays = ["রবিবার", "সোমবার", "মঙ্গলবার", "বুধবার", "বৃহস্পতিবার", "শুক্রবার", "শনিবার"];
+    const banglaDigits = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
 
-                // ৩. ইংরেজি তারিখ (e.g., Tue, Aug 11, 2026)
-                const dateEn = now.toLocaleDateString('en-US', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' });
-                document.getElementById('date-gregorian-en').innerText = dateEn;
+    const toBnNum = (n) => n.toString().replace(/\d/g, d => banglaDigits[d]);
 
-                // ৪. বাংলা তারিখ (ইংরেজি সন বাংলা লিপিতে) (যেমন: মঙ্গলবার, ১১ আগস্ট ২০২৬)
-                const dateBn = now.toLocaleDateString('bn-BD', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
-                document.getElementById('date-gregorian-bn').innerText = dateBn;
+    const gYear = date.getFullYear();
+    const isLeapYear = (gYear % 4 === 0 && gYear % 100 !== 0) || (gYear % 400 === 0);
 
-                // ৫. ইসলামিক হিজরি তারিখ (স্বয়ংক্রিয়ভাবে বাংলা লিপিতে অনুবাদসহ)
-                try {
-                    const optionsHijri = { day: 'numeric', month: 'long', year: 'numeric' };
-                    // 'bn-BD-u-ca-islamic' লোক্যাল ব্যবহারের মাধ্যমে বাংলা হরফে হিজরি মাস ও তারিখ প্রস্তুত হবে
-                    let hijriStr = new Intl.DateTimeFormat('bn-BD-u-ca-islamic', optionsHijri).format(now);
-                    document.getElementById('date-hijri').innerText = hijriStr + " হিজরি";
-                } catch(e) {
-                    document.getElementById('date-hijri').innerText = "সফর ২৮, ১৪৪৮ হিজরি"; // কোনো কারণে ব্রাউজার অসমর্থ হলে ব্যাকআপ
-                }
-            }
-            
-            updateDateTime();
-            setInterval(updateDateTime, 1000); // প্রতি সেকেন্ডে স্বয়ংক্রিয়ভাবে সময় রিফ্রেশ হবে
-        }
+    // বাংলা একাডেমি নিয়ম: প্রথম ৬ মাস ৩১ দিন, পরবর্তী ৫ মাস ৩০ দিন, ফাল্গুন ২৯ দিন (লিপ ইয়ারে ৩০ দিন)
+    const monthDays = [31, 31, 31, 31, 31, 31, 30, 30, 30, 30, isLeapYear ? 30 : 29, 30];
 
-        window.onload = () => { 
-            fetchRamadanData(); 
-            checkLocalLogin(); 
-            initCompassDragControls(); 
-            startLiveDateTime(); // এখানে ইঞ্জিনটি চালু করা হলো
-        }
+    // পহেলা বৈশাখ ১৪ এপ্রিল
+    const pohelaBoishakh = new Date(gYear, 3, 14); // 14 April
+    let bYear, dayDiff;
+
+    if (date >= pohelaBoishakh) {
+        bYear = gYear - 593;
+        dayDiff = Math.floor((date - pohelaBoishakh) / (1000 * 60 * 60 * 24));
+    } else {
+        bYear = gYear - 594;
+        const prevPohela = new Date(gYear - 1, 3, 14);
+        dayDiff = Math.floor((date - prevPohela) / (1000 * 60 * 60 * 24));
+    }
+
+    let bMonth = 0;
+    while (bMonth < 12 && dayDiff >= monthDays[bMonth]) {
+        dayDiff -= monthDays[bMonth];
+        bMonth++;
+    }
+
+    const bDate = dayDiff + 1;
+    const dayName = banglaDays[date.getDay()];
+
+    return `${dayName}, ${toBnNum(bDate)} ${banglaMonths[bMonth]} ${toBnNum(bYear)} বঙ্গাব্দ`;
+}
+
+// ২. হিজরি / আরবি তারিখ কনভার্টার
+function getHijriDate(date = new Date()) {
+    const hijriMonthsBn = [
+        "মুহাররম", "সফর", "রবিউল আউয়াল", "রবিউস সানি",
+        "জমাদিউল আউয়াল", "জমাদিউস সানি", "রজব", "শাবান",
+        "রমজান", "শাওয়াল", "জিলকদ", "জিলহজ"
+    ];
+    const banglaDigits = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
+    const toBnNum = (n) => n.toString().replace(/\d/g, d => banglaDigits[d]);
+
+    try {
+        // ব্রাউজারের Intl API দিয়ে ইসলামিক উম্মুল কুরা তারিখ বের করা
+        const intlFormatter = new Intl.DateTimeFormat('en-US-u-ca-islamic-umalqura', {
+            day: 'numeric',
+            month: 'numeric',
+            year: 'numeric'
+        });
+        const parts = intlFormatter.formatToParts(date);
+        let hDay = 1, hMonth = 1, hYear = 1448;
+
+        parts.forEach(p => {
+            if (p.type === 'day') hDay = parseInt(p.value, 10);
+            if (p.type === 'month') hMonth = parseInt(p.value, 10);
+            if (p.type === 'year') hYear = parseInt(p.value, 10);
+        });
+
+        const monthName = hijriMonthsBn[hMonth - 1] || "রমজান";
+        return `${toBnNum(hDay)}ই ${monthName}, ${toBnNum(hYear)} হিজরি`;
+    } catch (e) {
+        // ব্রাউজার সমর্থন না করলে ফ্যালব্যাক
+        return "৮ই রবিউল আউয়াল, ১৪৪৮ হিজরি";
+    }
+}
+
+// ৩. লাইভ ক্লক ও ক্যালেন্ডার অটো-আপডেট ইঞ্জিন
+function startLiveDateTime() {
+    function updateDateTime() {
+        const now = new Date();
+
+        // ক. লাইভ সময় (বাংলা ২৪ ঘণ্টা)
+        const timeBn = now.toLocaleTimeString('bn-BD', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
+        const liveTimeBnEl = document.getElementById('live-time-bn');
+        if (liveTimeBnEl) liveTimeBnEl.innerText = timeBn;
+
+        // খ. লাইভ সময় (ইংরেজি ১২ ঘণ্টা AM/PM)
+        const timeEn = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true });
+        const liveTimeEnEl = document.getElementById('live-time-en');
+        if (liveTimeEnEl) liveTimeEnEl.innerText = timeEn;
+
+        // গ. ইংরেজি তারিখ (যেমন: Fri, Aug 21, 2026)
+        const dateEn = now.toLocaleDateString('en-US', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' });
+        const dateEnEl = document.getElementById('date-gregorian-en');
+        if (dateEnEl) dateEnEl.innerText = dateEn;
+
+        // ঘ. খাঁটি বাংলা তারিখ (বঙ্গাব্দ) (যেমন: শুক্রবার, ৬ ভাদ্র ১৪৩৩ বঙ্গাব্দ)
+        const dateBnBangla = getBanglaDate(now);
+        const dateBnEl = document.getElementById('date-bangla-bengali');
+        if (dateBnEl) dateBnEl.innerText = dateBnBangla;
+
+        // ঙ. আরবি / হিজরি তারিখ (যেমন: ৮ই রবিউল আউয়াল, ১৪৪৮ হিজরি)
+        const dateHijriStr = getHijriDate(now);
+        const dateHijriEl = document.getElementById('date-hijri');
+        if (dateHijriEl) dateHijriEl.innerText = dateHijriStr;
+    }
+
+    updateDateTime();
+    setInterval(updateDateTime, 1000); // প্রতি সেকেন্ডে স্বয়ংক্রিয়ভাবে আপডেট হবে
+}
 
         // === POPUP NOTICE LOGIC ===
         let popupQueue = []; let isPopupOpen = false; let noticeModalInstance = null; let currentNoticeId = null;
@@ -3191,7 +3262,7 @@
 // ======================================================================
 // === PREMIUM AI CHAT CONTROLLING ENGINE (SESSIONS, HISTORY & TTS) ===
 // ======================================================================
-const AI_API_KEY = "AQ.Ab8RN6K4aF-RU6yewt9c2raoLYw_aSTK8WzVJSU8lP5MUCvpvg"; 
+const AI_API_KEY = ""; 
 const AI_SYSTEM_PROMPT = "আপনি একজন অত্যন্ত বিনয়ী, নির্ভরযোগ্য এবং গভীরভাবে জ্ঞানী ইসলামিক স্কলার এবং এআই অ্যাসিস্ট্যান্ট। ব্যবহারকারীদের ইসলাম সম্পর্কিত প্রশ্নের উত্তর দেওয়ার সময় কুরআন এবং নির্ভরযোগ্য সহীহ হাদিসের (যেমন বুখারী ও মুসলিম) রেফারেন্স স্পষ্ট উল্লেখ করার চেষ্টা করুন। বিশেষ করে ইসলামিক ইতিহাস এবং সাহাবিদের জীবনী সঠিকভাবে তুলে ধরবেন। যেসব বিষয়ে আলেমদের মধ্যে একাধিক গ্রহণযোগ্য ফিকহী ব্যাখ্যা রয়েছে, তা সম্পূর্ণ নিরপেক্ষভাবে উপস্থাপন করবেন। ভাষা সবসময় অত্যন্ত মার্জিত, প্রফেশনাল ও সম্মানজনক বাংলায় রাখুন।";
 
 const AI_MODELS = [
@@ -3283,7 +3354,7 @@ function renderAiMessages() {
             ? 'background: var(--gold-gradient); color: var(--text-dark); align-self: flex-end; border-radius: 15px 15px 0 15px; margin-left: auto;' 
             : 'background: var(--card-green-light); color: white; align-self: flex-start; border-radius: 15px 15px 15px 0; border: 1px solid var(--border-gold); margin-right: auto;';
         
-        const label = isMe ? 'আপনি' : 'এআই স্কলার';
+        const label = isMe ? 'আপনি' : 'ইসলামিক ইতিহাস ও সহিহ হাদিস AI';
         const speakerBtn = (!isMe && hasSpeechSynthesis) 
             ? `<button onclick="speakAiText('${m.text.replace(/'/g, "\\'")}')" class="btn p-0 text-warning ms-3" style="font-size:11px;" title="ভয়েসে শুনুন"><i class="fas fa-volume-up"></i> শুনুন</button>` 
             : '';
@@ -3422,23 +3493,30 @@ window.sendAiMessage = async function() {
     let aiReply = "";
     let lastError = "";
 
+    // আপনার ব্যাকএন্ড সার্ভারের লিংক (সার্ভার হোস্ট করার পর এই লিংকটি পরিবর্তন করবেন)
+    const BACKEND_PROXY_URL = "https://islamic-history-and-authentic-hadith.onrender.com/api/chat";
+
     // মডেল কল করার চেষ্টা (একটি ফেইল করলে পরবর্তী ব্যাকআপ মডেলে রিকোয়েস্ট যাবে)
     for (const model of AI_MODELS) {
-        const URL = `https://generativelanguage.googleapis.com/v1/models/${model}:generateContent?key=${AI_API_KEY}`;
         try {
-            const response = await fetch(URL, {
+            const response = await fetch(BACKEND_PROXY_URL, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     contents: apiHistory,
-                    systemInstruction: { parts: [{ text: AI_SYSTEM_PROMPT }] }
+                    systemInstruction: { parts: [{ text: AI_SYSTEM_PROMPT }] },
+                    model: model // ব্যাকএন্ডে মডেলের নাম পাঠানো হচ্ছে
                 })
             });
 
             if (!response.ok) throw new Error();
 
             const data = await response.json();
-            aiReply = data.candidates[0].content.parts[0].text;
+            
+            // গুগলের জেনারেট করা ডাটা প্রসেস করা হচ্ছে
+            if (data.candidates && data.candidates[0].content.parts[0].text) {
+                aiReply = data.candidates[0].content.parts[0].text;
+            }
             break; 
         } catch (error) {
             lastError = error.toString();
@@ -3461,84 +3539,175 @@ window.sendAiMessage = async function() {
     }
 };
 
-// ৭. ভয়েস আউটপুট ফাংশন (TTS)
+// ======================================================================
+// === UPDATED HIGH-QUALITY BANGLA AI VOICE & SPEECH ENGINE (TTS & STT) ===
+// ======================================================================
+
+let selectedBanglaVoice = null;
+let speechQueue = [];
+let isCurrentlySpeaking = false;
+
+// ১. ব্রাউজার থেকে সেরা বাংলা ভয়েস লোড করা
+function loadBanglaVoices() {
+    if (!hasSpeechSynthesis) return;
+    const voices = window.speechSynthesis.getVoices();
+    // প্রথমে খাঁটি বাংলা (bn-BD বা bn-IN) ভয়েস খোঁজা হবে
+    selectedBanglaVoice = voices.find(v => v.lang === 'bn-BD' || v.lang === 'bn_BD') ||
+                          voices.find(v => v.lang === 'bn-IN' || v.lang === 'bn_IN') ||
+                          voices.find(v => v.lang.startsWith('bn')) ||
+                          null;
+}
+
+if (hasSpeechSynthesis) {
+    window.speechSynthesis.onvoiceschanged = loadBanglaVoices;
+    loadBanglaVoices();
+}
+
+// ২. টেক্সটকে দাঁড়ি/কমা অনুযায়ী ছোট ছোট বাক্যে ভাগ করা (যাতে মাঝপথে কেটে না যায়)
+function splitTextIntoSentences(text) {
+    // মার্কডাউন, ইমোজি ও অপ্রয়োজনীয় সংকেত দূর করা
+    let clean = text.replace(/[*#_~`\[\]]/g, '')
+                    .replace(/\((.*?)\)/g, '$1')
+                    .replace(/https?:\/\/\S+/g, '')
+                    .trim();
+
+    // দাঁড়ি, প্রশ্নবোধক, বিস্ময়সূচক বা নতুন লাইনের ভিত্তিতে ভাগ করা
+    const rawChunks = clean.split(/([।?!;\n]+)/);
+    const result = [];
+    let current = "";
+
+    for (let i = 0; i < rawChunks.length; i++) {
+        current += rawChunks[i];
+        if (i % 2 === 1 || current.length > 80) {
+            if (current.trim()) result.push(current.trim());
+            current = "";
+        }
+    }
+    if (current.trim()) result.push(current.trim());
+    return result.filter(s => s.length > 0);
+}
+
+// ৩. আপডেটেড ভয়েস স্পিক ফাংশন
 window.speakAiText = function(text) {
     if (!hasSpeechSynthesis) return;
 
-    if (window.speechSynthesis.speaking && lastSpokenAiText === text) {
+    // একই টেক্সট চালু অবস্থায় আবার ক্লিক করলে বন্ধ হবে
+    if (isCurrentlySpeaking && lastSpokenAiText === text) {
         stopAiSpeech();
         return;
     }
 
-    window.speechSynthesis.cancel();
-    
-    // টেক্সট থেকে ইমোজি বা অপ্রয়োজনীয় ক্যারেক্টার বাদ দেওয়া
-    const cleanText = text.replace(/[*#_~`\[\]]/g, '');
-    const utterance = new SpeechSynthesisUtterance(cleanText);
-    utterance.lang = 'bn-BD';
-    utterance.rate = 1.0;
+    stopAiSpeech();
+    lastSpokenAiText = text;
+    speechQueue = splitTextIntoSentences(text);
 
-    utterance.onstart = () => {
-        lastSpokenAiText = text;
-        const visualizer = document.getElementById('aiVoiceIndicator');
-        if (visualizer) visualizer.style.display = 'flex';
-    };
+    if (speechQueue.length === 0) return;
+
+    isCurrentlySpeaking = true;
+    const visualizer = document.getElementById('aiVoiceIndicator');
+    if (visualizer) visualizer.style.display = 'flex';
+
+    playNextSentenceInQueue();
+};
+
+// ৪. কিউ (Queue) ধরে একটার পর একটা বাক্য পড়ার ফাংশন
+function playNextSentenceInQueue() {
+    if (!isCurrentlySpeaking || speechQueue.length === 0) {
+        stopAiSpeech();
+        return;
+    }
+
+    const currentSentence = speechQueue.shift();
+    const utterance = new SpeechSynthesisUtterance(currentSentence);
+    
+    utterance.lang = 'bn-BD';
+    if (selectedBanglaVoice) {
+        utterance.voice = selectedBanglaVoice;
+    }
+    
+    utterance.rate = 0.95; // প্রাকৃতিক গতি
+    utterance.pitch = 1.0;
 
     utterance.onend = () => {
-        lastSpokenAiText = "";
-        const visualizer = document.getElementById('aiVoiceIndicator');
-        if (visualizer) visualizer.style.display = 'none';
+        // পরবর্তী বাক্য চালু করা
+        if (isCurrentlySpeaking) {
+            playNextSentenceInQueue();
+        }
     };
 
-    utterance.onerror = () => {
-        lastSpokenAiText = "";
-        const visualizer = document.getElementById('aiVoiceIndicator');
-        if (visualizer) visualizer.style.display = 'none';
+    utterance.onerror = (e) => {
+        console.warn("Speech Error:", e);
+        if (isCurrentlySpeaking && speechQueue.length > 0) {
+            playNextSentenceInQueue();
+        } else {
+            stopAiSpeech();
+        }
     };
 
     window.speechSynthesis.speak(utterance);
-};
+}
 
+// ৫. ভয়েস বন্ধ করার ফাংশন
 window.stopAiSpeech = function() {
-    if (hasSpeechSynthesis) window.speechSynthesis.cancel();
+    if (hasSpeechSynthesis) {
+        window.speechSynthesis.cancel();
+    }
+    isCurrentlySpeaking = false;
+    speechQueue = [];
     lastSpokenAiText = "";
     const visualizer = document.getElementById('aiVoiceIndicator');
     if (visualizer) visualizer.style.display = 'none';
 };
 
-// ৮. ভয়েস ইনপুট ফাংশন (STT)
+// ৬. ভয়েস ইনপুট (Microphone / STT) ফাংশন
 if (hasSpeechRecognition) {
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
     aiRecognition = new SpeechRecognition();
     aiRecognition.continuous = false;
+    aiRecognition.interimResults = false;
     aiRecognition.lang = 'bn-BD';
 
     aiRecognition.onstart = () => {
         isAiListening = true;
-        document.getElementById('ai-mic-pulse').style.display = 'block';
-        document.getElementById('ai-mic-btn').style.borderColor = '#dc3545';
-        document.getElementById('aiMsgInput').placeholder = "শুনছি... কথা বলুন...";
+        const pulse = document.getElementById('ai-mic-pulse');
+        const btn = document.getElementById('ai-mic-btn');
+        const input = document.getElementById('aiMsgInput');
+        if (pulse) pulse.style.display = 'block';
+        if (btn) btn.style.borderColor = '#dc3545';
+        if (input) input.placeholder = "শুনছি... কথা বলুন...";
     };
 
     aiRecognition.onresult = (event) => {
         const transcript = event.results[0][0].transcript;
-        document.getElementById('aiMsgInput').value = transcript;
+        const input = document.getElementById('aiMsgInput');
+        if (input) input.value = transcript;
+        stopAiListening();
     };
 
-    aiRecognition.onerror = () => { stopAiListening(); };
-    aiRecognition.onend = () => { stopAiListening(); };
+    aiRecognition.onerror = (e) => {
+        console.warn("Mic recognition error", e);
+        stopAiListening();
+    };
+    
+    aiRecognition.onend = () => {
+        stopAiListening();
+    };
 }
 
 window.toggleAiMic = function() {
     stopAiSpeech();
     if (!aiRecognition) {
-        alert("আপনার ব্রাউজারে স্পিচ রিকগনিশন সেন্সর সাপোর্ট করে না।");
+        alert("আপনার ব্রাউজারে মাইক্রোফোন ভয়েস সেন্সর সাপোর্ট করছে না।");
         return;
     }
     if (isAiListening) {
         aiRecognition.stop();
     } else {
-        aiRecognition.start();
+        try {
+            aiRecognition.start();
+        } catch(e) {
+            aiRecognition.stop();
+        }
     }
 };
 
@@ -4933,11 +5102,39 @@ window.handleZakatBack = function() {
             }
         }
 // ==========================================
+        // === অতিথি / ভিজিটর অটো-ট্র্যাকিং সিস্টেম ===
+        // ==========================================
+        function trackVisitor() {
+            let visitorId = localStorage.getItem('guest_visitor_id');
+            if (!visitorId) {
+                visitorId = 'guest_' + Math.random().toString(36).substr(2, 9) + '_' + Date.now();
+                localStorage.setItem('guest_visitor_id', visitorId);
+            }
+
+            db.collection('visitors').doc(visitorId).set({
+                visitorId: visitorId,
+                lastVisit: new Date(),
+                userAgent: navigator.userAgent
+            }, { merge: true }).catch(err => console.log("Visitor Track Error:", err));
+        }
+
+        // ==========================================
         // === নামাজের ম্যানুয়াল ও অটো মোড সেটিংস ===
         // ==========================================
 
         // ১. পেজ লোড ও প্রাথমিক সেটাআপ
         window.addEventListener('DOMContentLoaded', () => {
+            // ভিজিটর ট্র্যাকিং রান করা
+            trackVisitor();
+
+            // লাইভ সময়, ইংরেজি, বঙ্গাব্দ ও হিজরি তারিখ চালু করা
+            startLiveDateTime();
+            
+            // ইউজার ডাটা এবং নামাজের সময় লোড করা
+            checkLocalLogin();
+            fetchPrayerData();
+            fetchRamadanData();
+
             // আগে থেকে সংরক্ষিত আজান লিংক ও মোড রিলোড করা
             const savedMode = localStorage.getItem('prayer_mode') || 'auto';
             const modeSelect = document.getElementById('prayerModeSelect');
