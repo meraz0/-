@@ -5101,48 +5101,93 @@ window.handleZakatBack = function() {
                 }
             }
         }
-// ==========================================
-        // === ডিভাইস ও ভিজিটর অটো-ট্র্যাকিং সিস্টেম ===
-        // ==========================================
-        function trackVisitor() {
-            let deviceId = localStorage.getItem('app_device_id');
-            let isTracked = localStorage.getItem('is_device_tracked');
 
-            if (!deviceId) {
-                deviceId = 'dev_' + Math.random().toString(36).substr(2, 9) + '_' + Date.now();
-                localStorage.setItem('app_device_id', deviceId);
+// =========================================================================
+        // === অল-ইন-ওয়ান ডিটেকশন (স্মার্ট টিভি, আইফোন, কম্পিউটার, অ্যান্ড্রয়েড) ===
+        // =========================================================================
+        async function getRealDeviceModel() {
+            const ua = navigator.userAgent;
+
+            // ১. স্মার্ট টিভি (Smart TV) ও টিভি স্টিক ডিটেকশন
+            if (/Tizen/i.test(ua) || /SMART-TV/i.test(ua)) return "Samsung Smart TV (Tizen)";
+            if (/webOS|Web0S/i.test(ua)) return "LG Smart TV (webOS)";
+            if (/AFTT|AFTM|AFTB|FireTV/i.test(ua)) return "Amazon Fire TV Stick";
+            if (/AppleTV/i.test(ua)) return "Apple TV";
+            if (/Roku/i.test(ua)) return "Roku TV Streaming Device";
+            if (/Android.*TV|GoogleTV|BRAVIA|MiTV|SmartTV|HbbTV|NetCast/i.test(ua)) return "Android Smart TV";
+
+            // ২. আইফোন (iPhone) ও আইপ্যাড (iPad)
+            if (/iPhone/i.test(ua)) {
+                const iosVer = ua.match(/OS\s+([\d_]+)/i);
+                const verStr = iosVer ? " (iOS " + iosVer[1].replace(/_/g, '.') + ")" : "";
+                return "Apple iPhone" + verStr;
+            }
+            const isIPad = /iPad/i.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+            if (isIPad) return "Apple iPad";
+
+            // ৩. কম্পিউটার / ল্যাপটপ ডিটেকশন
+            if (/Windows NT 10.0/i.test(ua)) return "Windows 10/11 PC";
+            if (/Windows NT/i.test(ua)) return "Windows PC";
+            if (/Macintosh|Mac OS X/i.test(ua)) return "Apple Mac / MacBook";
+            if (/Linux/i.test(ua) && !/Android/i.test(ua)) return "Linux PC / Desktop";
+            if (/CrOS/i.test(ua)) return "Google Chromebook";
+
+            // ৪. অ্যান্ড্রয়েড ফোন ও মডেল ডিটেকশন
+            let rawModel = "Android Phone";
+            if (navigator.userAgentData && typeof navigator.userAgentData.getHighEntropyValues === 'function') {
+                try {
+                    const hints = await navigator.userAgentData.getHighEntropyValues(['model', 'platform']);
+                    if (hints.model) rawModel = hints.model;
+                } catch (e) {}
             }
 
-            // প্রথমবার অ্যাপ ওপেন করলেই app_devices এ জমা হবে
-            if (!isTracked) {
-                db.collection('app_devices').doc(deviceId).set({
-                    deviceId: deviceId,
-                    deviceModel: navigator.userAgent.includes("Android") ? "Android Phone" : "Web/Mobile Device",
-                    firstOpened: firebase.firestore.FieldValue.serverTimestamp()
-                }).then(() => {
-                    localStorage.setItem('is_device_tracked', 'true');
-                }).catch(err => console.log("Device Track Error:", err));
+            if (rawModel === "Android Phone") {
+                const match = ua.match(/\(([^)]+)\)/);
+                if (match && match[1]) {
+                    const parts = match[1].split(';');
+                    for (let part of parts) {
+                        part = part.trim();
+                        if (part.includes('Build/')) {
+                            rawModel = part.split('Build')[0].trim();
+                            break;
+                        }
+                    }
+                }
             }
+
+            let m = rawModel.toUpperCase();
+            if (m.startsWith("CPH") || m.includes("OPPO")) {
+                return (m.includes("1803") || m.includes("1853")) ? "OPPO A3s" : "OPPO (" + rawModel + ")";
+            } else if (m.startsWith("SM-") || m.includes("SAMSUNG")) {
+                return "Samsung (" + rawModel + ")";
+            } else if (m.startsWith("M2") || m.startsWith("REDMI") || m.includes("XIAOMI")) {
+                return "Xiaomi / Redmi (" + rawModel + ")";
+            } else if (m.startsWith("V2") || m.includes("VIVO")) {
+                return "Vivo (" + rawModel + ")";
+            } else if (m.startsWith("RMX") || m.includes("REALME")) {
+                return "Realme (" + rawModel + ")";
+            } else if (m.startsWith("X6") || m.includes("INFINIX")) {
+                return "Infinix (" + rawModel + ")";
+            } else if (rawModel !== "Android Phone" && rawModel !== "K") {
+                return rawModel;
+            }
+
+            return "Android Phone";
         }
 
+// ==========================================
+        // === পেজ লোড ও প্রাথমিক সেটাআপ ===
         // ==========================================
-        // === নামাজের ম্যানুয়াল ও অটো মোড সেটিংস ===
-        // ==========================================
-
-        // ১. পেজ লোড ও প্রাথমিক সেটাআপ
         window.addEventListener('DOMContentLoaded', () => {
-            // ভিজিটর ট্র্যাকিং রান করা
-            trackVisitor();
-
-            // লাইভ সময়, ইংরেজি, বঙ্গাব্দ ও হিজরি তারিখ চালু করা
+            // ১. লাইভ সময়, ইংরেজি, বঙ্গাব্দ ও হিজরি তারিখ চালু করা
             startLiveDateTime();
             
-            // ইউজার ডাটা এবং নামাজের সময় লোড করা
+            // ২. ইউজার ডাটা এবং নামাজের সময় লোড করা
             checkLocalLogin();
             fetchPrayerData();
             fetchRamadanData();
 
-            // আগে থেকে সংরক্ষিত আজান লিংক ও মোড রিলোড করা
+            // ৩. আগে থেকে সংরক্ষিত আজান লিংক ও মোড রিলোড করা
             const savedMode = localStorage.getItem('prayer_mode') || 'auto';
             const modeSelect = document.getElementById('prayerModeSelect');
             if (modeSelect) {
@@ -5157,64 +5202,9 @@ window.handleZakatBack = function() {
                 azanPlayer.src = savedAzanUrl;
             }
             
-            // UI মোড আপডেট করা
+            // ৪. UI মোড আপডেট করা
             applyPrayerModeUI(savedMode);
         });
-
-        // ২. মোড পরিবর্তন করা
-        window.togglePrayerMode = function() {
-            const selectedMode = document.getElementById('prayerModeSelect').value;
-            localStorage.setItem('prayer_mode', selectedMode);
-            
-            applyPrayerModeUI(selectedMode);
-            
-            // মোড পরিবর্তনের পর নামাজের ডেটা রি-রেন্ডার করা
-            if (selectedMode === 'auto') {
-                fetchPrayerData(); 
-            } else {
-                loadManualTimesToInputs();
-            }
-        };
-
-        // ৩. অটো/ম্যানুয়াল UI কন্ট্রোল করা
-        function applyPrayerModeUI(mode) {
-            const isManual = (mode === 'manual');
-            
-            // বাটন ও আজান কন্টেইনার প্রদর্শন
-            const autoGpsBox = document.getElementById('auto-gps-box');
-            const manualSaveBox = document.getElementById('manual-save-box');
-            const customAzanContainer = document.getElementById('custom-azan-container');
-
-            if (autoGpsBox) autoGpsBox.style.display = isManual ? 'none' : 'block';
-            if (manualSaveBox) manualSaveBox.style.display = isManual ? 'block' : 'none';
-            if (customAzanContainer) customAzanContainer.style.display = isManual ? 'block' : 'none';
-            
-            // টেক্সট ডিসপ্লে এবং টাইম ইনপুটের মধ্যে টগল
-            document.querySelectorAll('.auto-time-display').forEach(el => {
-                el.style.display = isManual ? 'none' : 'inline-block';
-            });
-            document.querySelectorAll('.manual-time-input').forEach(el => {
-                el.style.display = isManual ? 'inline-block' : 'none';
-            });
-        }
-
-        // ৪. কাস্টম আজান লিংক সেভ করা
-        window.saveCustomAzanUrl = function() {
-            const urlInput = document.getElementById('customAzanUrlInput');
-            const url = urlInput ? urlInput.value.trim() : "";
-            const azanPlayer = document.getElementById('azanAudioPlayer');
-
-            if (url) {
-                localStorage.setItem('custom_azan_url', url);
-                if (azanPlayer) azanPlayer.src = url;
-                alert("আজান অডিও লিংক সফলভাবে পরিবর্তন করা হয়েছে!");
-            } else {
-                localStorage.removeItem('custom_azan_url');
-                // ডিফল্ট লিংকে ফিরে যাওয়া
-                if (azanPlayer) azanPlayer.src = "https://files.catbox.moe/jerp9o.mp3";
-                alert("ডিফল্ট আজান অডিও লিংক সেট করা হয়েছে।");
-            }
-        };
 
         // ৫. ম্যানুয়াল মোডের ইনপুটে পূর্ববর্তী সংরক্ষিত বা ডিফল্ট ডাটা বসানো
         function loadManualTimesToInputs() {
