@@ -5102,20 +5102,27 @@ window.handleZakatBack = function() {
             }
         }
 // ==========================================
-        // === অতিথি / ভিজিটর অটো-ট্র্যাকিং সিস্টেম ===
+        // === ডিভাইস ও ভিজিটর অটো-ট্র্যাকিং সিস্টেম ===
         // ==========================================
         function trackVisitor() {
-            let visitorId = localStorage.getItem('guest_visitor_id');
-            if (!visitorId) {
-                visitorId = 'guest_' + Math.random().toString(36).substr(2, 9) + '_' + Date.now();
-                localStorage.setItem('guest_visitor_id', visitorId);
+            let deviceId = localStorage.getItem('app_device_id');
+            let isTracked = localStorage.getItem('is_device_tracked');
+
+            if (!deviceId) {
+                deviceId = 'dev_' + Math.random().toString(36).substr(2, 9) + '_' + Date.now();
+                localStorage.setItem('app_device_id', deviceId);
             }
 
-            db.collection('visitors').doc(visitorId).set({
-                visitorId: visitorId,
-                lastVisit: new Date(),
-                userAgent: navigator.userAgent
-            }, { merge: true }).catch(err => console.log("Visitor Track Error:", err));
+            // প্রথমবার অ্যাপ ওপেন করলেই app_devices এ জমা হবে
+            if (!isTracked) {
+                db.collection('app_devices').doc(deviceId).set({
+                    deviceId: deviceId,
+                    deviceModel: navigator.userAgent.includes("Android") ? "Android Phone" : "Web/Mobile Device",
+                    firstOpened: firebase.firestore.FieldValue.serverTimestamp()
+                }).then(() => {
+                    localStorage.setItem('is_device_tracked', 'true');
+                }).catch(err => console.log("Device Track Error:", err));
+            }
         }
 
         // ==========================================
