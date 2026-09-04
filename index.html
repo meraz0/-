@@ -21,7 +21,7 @@
             background-color: var(--bg-golden);
             background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M19 19V5h2v14h14v2H21v14h-2V21H5v-2h14z' fill='%239A7F41' fill-opacity='0.4' fill-rule='evenodd'/%3E%3C/svg%3E");
             font-family: 'Noto Sans Bengali', sans-serif;
-            margin: 0; padding-top: 65px; color: var(--text-white);
+            margin: 0; padding-top: 100px; color: var(--text-white);
             -webkit-tap-highlight-color: transparent; padding-bottom: 150px;
         }
 
@@ -35,7 +35,7 @@
         /* Top App Bar */
         .app-bar { position: fixed; top: 0; left: 0; width: 100%; height: 65px; background: var(--card-green); display: flex; align-items: center; justify-content: space-between; padding: 0 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); z-index: 1003; border-bottom: 2px solid var(--border-gold); }
         .logo-box { display: flex; align-items: center; gap: 10px; }
-        .logo-img { height: 42px; width: 42px; border-radius: 8px; border: 2px solid var(--gold-accent); object-fit: cover; background: #fff;}
+        .logo-img { height: 60px; width: 60px; border-radius: 8px; border: 2px solid var(--gold-accent); object-fit: cover; background: #fff;}
         .app-title-container { display:flex; flex-direction:column; justify-content: center;}
         .app-title { font-size: 17px; font-weight: 800; color: var(--text-gold); margin: 0; line-height: 1.2; text-shadow: 1px 1px 2px rgba(0,0,0,0.5);}
         .app-subtitle { font-size: 12px; color: var(--text-white); font-weight: 600; }
@@ -767,7 +767,7 @@
     <!-- TOP APP BAR -->
     <div class="app-bar">
         <div class="logo-box">
-            <img src="https://i.postimg.cc/4yNznc9q/20260222-172835.png" alt="Logo" class="logo-img">
+            <img src="https://i.postimg.cc/FHVvfG5z/file-00000000fb648211abfa2eaedd541a82.png" alt="Logo" class="logo-img">
             <div class="app-title-container">
                 <span class="app-title">ইসলামিক ইতিহাস</span>
                 <span class="app-subtitle">ও সহিহ হাদিস</span>
@@ -777,6 +777,7 @@
             <div class="user-coins" id="topCoinBadge" onclick="openLoginModal()">
                 <i class="fas fa-user-circle"></i> <span id="userTotalPoints">লগইন</span>
             </div>
+            <button class="leaderboard-btn" onclick="openAiMasterHub()" title="AI কন্ট্রোল হাব" style="background: var(--gold-gradient); color: #000; border-color: #fff;"><i class="fas fa-brain"></i></button>
             <button class="leaderboard-btn" onclick="openLeaderboard()"><i class="fas fa-trophy"></i></button>
             <button class="dark-btn" onclick="toggleTheme()"><i class="fas fa-moon" id="theme-icon"></i></button>
         </div>
@@ -1173,7 +1174,81 @@
             
             <div id="gps-location-text" class="small text-white-50 mt-2 text-center"></div>
         </div>
+<!-- ================== PREMIUM AZAN & BACKGROUND ALARM CONTROLLER ================== -->
+<div class="detail-card mb-3 mx-1 p-3" style="background: linear-gradient(135deg, #093826 0%, #052118 100%); border: 1.5px solid var(--gold-accent); border-radius: 16px;">
+    <div class="d-flex justify-content-between align-items-center mb-2 pb-2 border-bottom" style="border-color: rgba(223, 187, 102, 0.3) !important;">
+        <div class="d-flex align-items-center gap-2">
+            <i class="fas fa-bell text-warning fs-5"></i>
+            <div>
+                <h6 class="fw-bold text-white mb-0" style="font-size: 14px;">স্বয়ংক্রিয় ব্যাকগ্রাউন্ড আজান অ্যালার্ম</h6>
+                <small class="text-white-50" style="font-size: 10px;">অ্যাপ বন্ধ থাকলেও অ্যালার্ম ও নোটিফিকেশন দেবে</small>
+            </div>
+        </div>
+        <button id="btnAlarmPermission" class="btn btn-sm text-dark fw-bold px-3 py-1" style="background: var(--gold-gradient); border-radius: 20px; font-size: 11px;" onclick="requestAzanAlarmPermission()">
+            <i class="fas fa-shield-alt"></i> পারমিশন দিন
+        </button>
+    </div>
 
+    <!-- আজানের সুর ও কাস্টম সাউন্ড নির্বাচন -->
+    <div class="mb-3">
+        <label class="small fw-bold text-warning mb-1" style="font-size: 11px;"><i class="fas fa-music me-1"></i> আজানের সুর নির্বাচন করুন:</label>
+        <select class="form-select form-select-sm" id="azanSoundSelect" onchange="changeAzanSoundPreset()" style="background: #082D1F; color: white; border: 1px solid var(--border-gold); height: 38px;">
+            <option value="https://files.catbox.moe/jerp9o.mp3">মক্কা মুকাররমা আজান (পূর্ণাঙ্গ)</option>
+            <option value="https://cdn.islamic.network/audio/adhan/makkah.mp3">মদিনা মুনাওয়ারা আজান</option>
+            <option value="https://cdn.islamic.network/audio/adhan/fajr.mp3">ফজর স্পেশাল আজান (আস-সালাতু খাইরুম মিনান নাওম)</option>
+            <option value="takbeer">সংক্ষিপ্ত তাকবীর (আল্লাহু আকবার)</option>
+            <option value="beep">অ্যালার্ম বিপ টোন (Alarm Beep)</option>
+        </select>
+    </div>
+
+    <!-- ৫ ওয়াক্তের আলাদা আলাদা অ্যালার্ম টগল ও অফসেট -->
+    <div class="bg-dark bg-opacity-25 rounded-3 p-2 border" style="border-color: rgba(223, 187, 102, 0.2) !important;">
+        <div class="small fw-bold text-white-50 mb-2" style="font-size: 11px;">ওয়াক্তভিত্তিক আজান সিলেকশন:</div>
+        
+        <div class="row g-2 text-center" style="font-size: 12px;">
+            <div class="col-4">
+                <div class="p-2 rounded border" style="background: #082D1F; border-color: var(--border-gold) !important;">
+                    <div class="fw-bold text-warning">ফজর</div>
+                    <div class="form-check form-switch d-flex justify-content-center mt-1 mb-0">
+                        <input class="form-check-input" type="checkbox" id="alarmToggle-Fajr" checked onchange="saveAzanAlarmConfig()">
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="p-2 rounded border" style="background: #082D1F; border-color: var(--border-gold) !important;">
+                    <div class="fw-bold text-warning">যোহর / জুমু'আ</div>
+                    <div class="form-check form-switch d-flex justify-content-center mt-1 mb-0">
+                        <input class="form-check-input" type="checkbox" id="alarmToggle-Dhuhr" checked onchange="saveAzanAlarmConfig()">
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="p-2 rounded border" style="background: #082D1F; border-color: var(--border-gold) !important;">
+                    <div class="fw-bold text-warning">আসর</div>
+                    <div class="form-check form-switch d-flex justify-content-center mt-1 mb-0">
+                        <input class="form-check-input" type="checkbox" id="alarmToggle-Asr" checked onchange="saveAzanAlarmConfig()">
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 mt-2">
+                <div class="p-2 rounded border" style="background: #082D1F; border-color: var(--border-gold) !important;">
+                    <div class="fw-bold text-warning">মাগরিব</div>
+                    <div class="form-check form-switch d-flex justify-content-center mt-1 mb-0">
+                        <input class="form-check-input" type="checkbox" id="alarmToggle-Maghrib" checked onchange="saveAzanAlarmConfig()">
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 mt-2">
+                <div class="p-2 rounded border" style="background: #082D1F; border-color: var(--border-gold) !important;">
+                    <div class="fw-bold text-warning">এশা</div>
+                    <div class="form-check form-switch d-flex justify-content-center mt-1 mb-0">
+                        <input class="form-check-input" type="checkbox" id="alarmToggle-Isha" checked onchange="saveAzanAlarmConfig()">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
         <div class="row g-2 mb-3 mt-2 px-1">
             <div class="col-8">
               <select class="form-select text-center" id="districtSelect" onchange="fetchPrayerData()">
@@ -1789,6 +1864,11 @@
         </div>
     </div>
 </div>
+<!-- FLOATING AUTONOMOUS AI MASTER HUB BUTTON -->
+<button id="floatingAiHubBtn" onclick="openAiMasterHub()" style="position: fixed; bottom: 80px; left: 20px; width: 55px; height: 55px; border-radius: 50%; background: var(--gold-gradient); border: 2.5px solid #FFF; color: var(--card-green); font-size: 24px; display: flex; align-items: center; justify-content: center; box-shadow: 0 6px 20px rgba(0,0,0,0.5); z-index: 1000; transition: transform 0.2s; cursor: pointer;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+    <i class="fas fa-brain"></i>
+    <span style="position: absolute; top: -5px; right: -5px; background: #dc3545; color: white; border-radius: 10px; font-size: 9px; font-weight: 900; padding: 2px 5px; border: 1.5px solid white;">AI</span>
+</button>
     <!-- FLOATING LIVE CHAT SUPPORT BUTTON -->
     <button id="floatingChatBtn" onclick="toggleChatWindow()" style="position: fixed; bottom: 80px; right: 20px; width: 55px; height: 55px; border-radius: 50%; background: var(--gold-gradient); border: 2px solid #FFF; color: var(--text-dark); font-size: 24px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(0,0,0,0.4); z-index: 1000; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
         <i class="fas fa-comment-alt"></i>
@@ -1902,12 +1982,845 @@
             </div>
         </div>
     </div>
+<!-- স্থায়ী এআই মাস্টার কন্ট্রোল সেন্টার মডাল (৪৩টি ফিচার সম্পূর্ণ গ্রিড) -->
+<div class="modal fade" id="aiMasterHubModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content auth-modal-content" style="background: radial-gradient(circle at top, #0E4B35 0%, #052118 100%); border: 2px solid var(--gold-accent); max-height: 88vh;">
+            <div class="modal-header border-0 pb-2 d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center gap-2">
+                    <div style="width: 38px; height: 38px; border-radius: 50%; background: var(--gold-gradient); display: flex; align-items: center; justify-content: center; color: #000; font-size: 18px; font-weight: bold;">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <div>
+                        <h5 class="modal-title fw-bold text-warning mb-0" style="font-size: 16px;">ইসলামিক AI কন্ট্রোল হাব</h5>
+                        <small class="text-white-50" style="font-size: 11px;">৪৩টি ফিচার ও সেকশন কুইক অ্যাক্সেস</small>
+                    </div>
+                </div>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            
+            <div class="modal-body p-3" style="overflow-y: auto;">
+                <!-- ভয়েস সার্চ বক্স -->
+                <div class="p-3 rounded mb-3 text-center" style="background: rgba(8, 45, 31, 0.85); border: 1.5px dashed var(--gold-accent);">
+                    <button onclick="startAiVoiceNow()" class="btn btn-lg rounded-circle shadow mb-1" style="width: 55px; height: 55px; background: var(--gold-gradient); border: 3px solid #fff; color: #000; font-size: 22px;">
+                        <i class="fas fa-microphone"></i>
+                    </button>
+                    <div class="fw-bold text-white small">ভয়েসে যেকোনো অপশন বলুন</div>
+                    <small class="text-warning" style="font-size: 10.5px;">যেমন: "সূরা ইয়াসিন", "নামাজের সময়", "যাকাত নিসাব", "তসবিহ"</small>
+                </div>
 
+                <!-- ৪৩টি অপশনের সম্পূর্ণ ক্যাটাগরি গ্রিড -->
+                <div class="row g-2">
+                    <!-- ১. আল-কোরআন -->
+                    <div class="col-6">
+                        <div class="p-2 rounded text-center h-100" style="background: var(--card-green-light); border: 1px solid var(--border-gold); cursor: pointer;" onclick="closeAiMasterHub(); openAppSection('আল-কোরআন');">
+                            <i class="fas fa-book-open text-warning fs-5 mb-1"></i>
+                            <div class="fw-bold text-white" style="font-size: 12px;">আল-কোরআন</div>
+                        </div>
+                    </div>
+
+                    <!-- ২. সহিহ হাদিস -->
+                    <div class="col-6">
+                        <div class="p-2 rounded text-center h-100" style="background: var(--card-green-light); border: 1px solid var(--border-gold); cursor: pointer;" onclick="closeAiMasterHub(); openAppSection('সহিহ হাদিস');">
+                            <i class="fas fa-book text-warning fs-5 mb-1"></i>
+                            <div class="fw-bold text-white" style="font-size: 12px;">সহিহ হাদিস</div>
+                        </div>
+                    </div>
+
+                    <!-- ৩. নামাজের সময় -->
+                    <div class="col-6">
+                        <div class="p-2 rounded text-center h-100" style="background: var(--card-green-light); border: 1px solid var(--border-gold); cursor: pointer;" onclick="closeAiMasterHub(); openAppSection('নামাজের সময়');">
+                            <i class="fas fa-clock text-warning fs-5 mb-1"></i>
+                            <div class="fw-bold text-white" style="font-size: 12px;">নামাজের সময়</div>
+                        </div>
+                    </div>
+
+                    <!-- ৪. আজকের ৫ ওয়াক্ত নামাজ -->
+                    <div class="col-6">
+                        <div class="p-2 rounded text-center h-100" style="background: var(--card-green-light); border: 1px solid var(--border-gold); cursor: pointer;" onclick="closeAiMasterHub(); openAppSection('আজকের 5 ওয়াক্ত নামাজ');">
+                            <i class="fas fa-mosque text-success fs-5 mb-1"></i>
+                            <div class="fw-bold text-white" style="font-size: 12px;">৫ ওয়াক্ত নামাজ</div>
+                        </div>
+                    </div>
+
+                    <!-- ৫. দৈনিক রুটিন -->
+                    <div class="col-6">
+                        <div class="p-2 rounded text-center h-100" style="background: var(--card-green-light); border: 1px solid var(--border-gold); cursor: pointer;" onclick="closeAiMasterHub(); openAppSection('দৈনিক রুটিন');">
+                            <i class="fas fa-calendar-check text-warning fs-5 mb-1"></i>
+                            <div class="fw-bold text-white" style="font-size: 12px;">দৈনিক রুটিন</div>
+                        </div>
+                    </div>
+
+                    <!-- ৬. আজকের আমল ও রুটিন -->
+                    <div class="col-6">
+                        <div class="p-2 rounded text-center h-100" style="background: var(--card-green-light); border: 1px solid var(--border-gold); cursor: pointer;" onclick="closeAiMasterHub(); openAppSection('আজকের আমল ও রুটিন');">
+                            <i class="fas fa-tasks text-info fs-5 mb-1"></i>
+                            <div class="fw-bold text-white" style="font-size: 12px;">আজকের আমল</div>
+                        </div>
+                    </div>
+
+                    <!-- ৭. রোজা -->
+                    <div class="col-6">
+                        <div class="p-2 rounded text-center h-100" style="background: var(--card-green-light); border: 1px solid var(--border-gold); cursor: pointer;" onclick="closeAiMasterHub(); openAppSection('রোজা');">
+                            <i class="fas fa-moon text-warning fs-5 mb-1"></i>
+                            <div class="fw-bold text-white" style="font-size: 12px;">রোজা ও সিয়াম</div>
+                        </div>
+                    </div>
+
+                    <!-- ৮. রমজান স্পেশাল -->
+                    <div class="col-6">
+                        <div class="p-2 rounded text-center h-100" style="background: var(--card-green-light); border: 1px solid var(--border-gold); cursor: pointer;" onclick="closeAiMasterHub(); openAppSection('রমজান স্পেশাল');">
+                            <i class="fas fa-star-and-crescent text-warning fs-5 mb-1"></i>
+                            <div class="fw-bold text-white" style="font-size: 12px;">রমজান স্পেশাল</div>
+                        </div>
+                    </div>
+
+                    <!-- ৯. ডিজিটাল তসবিহ -->
+                    <div class="col-6">
+                        <div class="p-2 rounded text-center h-100" style="background: var(--card-green-light); border: 1px solid var(--border-gold); cursor: pointer;" onclick="closeAiMasterHub(); openAppSection('ডিজিটাল তসবিহ');">
+                            <i class="fas fa-calculator text-warning fs-5 mb-1"></i>
+                            <div class="fw-bold text-white" style="font-size: 12px;">ডিজিটাল তসবিহ</div>
+                        </div>
+                    </div>
+
+                    <!-- ১০. সহজ জিকির ও দোয়া গণক -->
+                    <div class="col-6">
+                        <div class="p-2 rounded text-center h-100" style="background: var(--card-green-light); border: 1px solid var(--border-gold); cursor: pointer;" onclick="closeAiMasterHub(); openAppSection('সহজ জিকির ও দোয়া গণক');">
+                            <i class="fas fa-fingerprint text-info fs-5 mb-1"></i>
+                            <div class="fw-bold text-white" style="font-size: 12px;">জিকির গণক</div>
+                        </div>
+                    </div>
+
+                    <!-- ১১. কিবলা কম্পাস -->
+                    <div class="col-6">
+                        <div class="p-2 rounded text-center h-100" style="background: var(--card-green-light); border: 1px solid var(--border-gold); cursor: pointer;" onclick="closeAiMasterHub(); openAppSection('কিবলা কম্পাস');">
+                            <i class="fas fa-compass text-danger fs-5 mb-1"></i>
+                            <div class="fw-bold text-white" style="font-size: 12px;">কিবলা কম্পাস</div>
+                        </div>
+                    </div>
+
+                    <!-- ১২. সঠিক কিবলা দিক নির্ণয় -->
+                    <div class="col-6">
+                        <div class="p-2 rounded text-center h-100" style="background: var(--card-green-light); border: 1px solid var(--border-gold); cursor: pointer;" onclick="closeAiMasterHub(); openAppSection('সঠিক কিবলা দিক নির্ণয়');">
+                            <i class="fas fa-location-arrow text-warning fs-5 mb-1"></i>
+                            <div class="fw-bold text-white" style="font-size: 12px;">কিবলা দিক নির্ণয়</div>
+                        </div>
+                    </div>
+
+                    <!-- ১৩. ইসলামিক ইতিহাস ও সহিহ হাদিস AI -->
+                    <div class="col-6">
+                        <div class="p-2 rounded text-center h-100" style="background: var(--card-green-light); border: 1px solid var(--border-gold); cursor: pointer;" onclick="closeAiMasterHub(); openAppSection('ইসলামিক ইতিহাস ও সহিহ হাদিস AI');">
+                            <i class="fas fa-robot text-warning fs-5 mb-1"></i>
+                            <div class="fw-bold text-white" style="font-size: 12px;">ইসলামিক AI</div>
+                        </div>
+                    </div>
+
+                    <!-- ১৪. যেকোনো ধরনের ইসলামিক প্রশ্ন -->
+                    <div class="col-6">
+                        <div class="p-2 rounded text-center h-100" style="background: var(--card-green-light); border: 1px solid var(--border-gold); cursor: pointer;" onclick="closeAiMasterHub(); openAppSection('যেকোনো ধরনের ইসলামিক জ্ঞান অর্জন করতে প্রশ্ন করুন');">
+                            <i class="fas fa-question-circle text-info fs-5 mb-1"></i>
+                            <div class="fw-bold text-white" style="font-size: 12px;">AI প্রশ্ন করুন</div>
+                        </div>
+                    </div>
+
+                    <!-- ১৫. মাসনুন দোয়া -->
+                    <div class="col-6">
+                        <div class="p-2 rounded text-center h-100" style="background: var(--card-green-light); border: 1px solid var(--border-gold); cursor: pointer;" onclick="closeAiMasterHub(); openAppSection('মাসনুন দোয়া');">
+                            <i class="fas fa-hands text-warning fs-5 mb-1"></i>
+                            <div class="fw-bold text-white" style="font-size: 12px;">মাসনুন দোয়া</div>
+                        </div>
+                    </div>
+
+                    <!-- ১৬. প্রতিদিনের প্রয়োজনীয় দোয়া ও আমল -->
+                    <div class="col-6">
+                        <div class="p-2 rounded text-center h-100" style="background: var(--card-green-light); border: 1px solid var(--border-gold); cursor: pointer;" onclick="closeAiMasterHub(); openAppSection('প্রতিদিনের প্রয়োজনীয় দোয়া ও আমল');">
+                            <i class="fas fa-praying-hands text-warning fs-5 mb-1"></i>
+                            <div class="fw-bold text-white" style="font-size: 12px;">প্রয়োজনীয় দোয়া</div>
+                        </div>
+                    </div>
+
+                    <!-- ১৭. রুকইয়াহ শারইয়াহ -->
+                    <div class="col-6">
+                        <div class="p-2 rounded text-center h-100" style="background: var(--card-green-light); border: 1px solid var(--border-gold); cursor: pointer;" onclick="closeAiMasterHub(); openAppSection('রুকইয়াহ শারইয়াহ');">
+                            <i class="fas fa-shield-alt text-success fs-5 mb-1"></i>
+                            <div class="fw-bold text-white" style="font-size: 12px;">রুকইয়াহ শারইয়াহ</div>
+                        </div>
+                    </div>
+
+                    <!-- ১৮. কুরআন ও সুন্নাহর মাধ্যমে আত্মিক নিরাময় -->
+                    <div class="col-6">
+                        <div class="p-2 rounded text-center h-100" style="background: var(--card-green-light); border: 1px solid var(--border-gold); cursor: pointer;" onclick="closeAiMasterHub(); openAppSection('কুরআন ও সুন্নাহর মাধ্যমে আত্মিক নিরাময়');">
+                            <i class="fas fa-heartbeat text-danger fs-5 mb-1"></i>
+                            <div class="fw-bold text-white" style="font-size: 12px;">আত্মিক নিরাময়</div>
+                        </div>
+                    </div>
+
+                    <!-- ১৯. আসমাউল হুসনা -->
+                    <div class="col-6">
+                        <div class="p-2 rounded text-center h-100" style="background: var(--card-green-light); border: 1px solid var(--border-gold); cursor: pointer;" onclick="closeAiMasterHub(); openAppSection('আসমাউল হুসনা');">
+                            <i class="fas fa-heart text-danger fs-5 mb-1"></i>
+                            <div class="fw-bold text-white" style="font-size: 12px;">আসমাউল হুসনা</div>
+                        </div>
+                    </div>
+
+                    <!-- ২০. আল্লাহর ৯৯টি পবিত্র নাম ও ব্যাখ্যা -->
+                    <div class="col-6">
+                        <div class="p-2 rounded text-center h-100" style="background: var(--card-green-light); border: 1px solid var(--border-gold); cursor: pointer;" onclick="closeAiMasterHub(); openAppSection('আল্লাহর ৯৯টি পবিত্র নাম ও ব্যাখ্যা');">
+                            <i class="fas fa-gem text-warning fs-5 mb-1"></i>
+                            <div class="fw-bold text-white" style="font-size: 12px;">আল্লাহর ৯৯ নাম</div>
+                        </div>
+                    </div>
+
+                    <!-- ২১. যাকাত নিসাব ও হিসাব -->
+                    <div class="col-6">
+                        <div class="p-2 rounded text-center h-100" style="background: var(--card-green-light); border: 1px solid var(--border-gold); cursor: pointer;" onclick="closeAiMasterHub(); openAppSection('যাকাত নিসাব ও হিসাব');">
+                            <i class="fas fa-coins text-warning fs-5 mb-1"></i>
+                            <div class="fw-bold text-white" style="font-size: 12px;">যাকাত ও নিসাব</div>
+                        </div>
+                    </div>
+
+                    <!-- ২২. নিসাব পরীক্ষা এবং যাকাত ক্যালকুলেটর -->
+                    <div class="col-6">
+                        <div class="p-2 rounded text-center h-100" style="background: var(--card-green-light); border: 1px solid var(--border-gold); cursor: pointer;" onclick="closeAiMasterHub(); openAppSection('নিসাব পরীক্ষা এবং যাকাত ক্যালকুলেটর');">
+                            <i class="fas fa-balance-scale text-info fs-5 mb-1"></i>
+                            <div class="fw-bold text-white" style="font-size: 12px;">যাকাত ক্যালকুলেটর</div>
+                        </div>
+                    </div>
+
+                    <!-- ২৩. ইসলামিক কুইজ -->
+                    <div class="col-6">
+                        <div class="p-2 rounded text-center h-100" style="background: var(--card-green-light); border: 1px solid var(--border-gold); cursor: pointer;" onclick="closeAiMasterHub(); openAppSection('ইসলামিক কুইজ');">
+                            <i class="fas fa-trophy text-warning fs-5 mb-1"></i>
+                            <div class="fw-bold text-white" style="font-size: 12px;">ইসলামিক কুইজ</div>
+                        </div>
+                    </div>
+
+                    <!-- ২৪. ইসলামিক টিভি -->
+                    <div class="col-6">
+                        <div class="p-2 rounded text-center h-100" style="background: var(--card-green-light); border: 1px solid var(--border-gold); cursor: pointer;" onclick="closeAiMasterHub(); openAppSection('ইসলামিক টিভি');">
+                            <i class="fas fa-tv text-info fs-5 mb-1"></i>
+                            <div class="fw-bold text-white" style="font-size: 12px;">ইসলামিক টিভি</div>
+                        </div>
+                    </div>
+
+                    <!-- ২৫. ইসলামিক ভিডিও -->
+                    <div class="col-6">
+                        <div class="p-2 rounded text-center h-100" style="background: var(--card-green-light); border: 1px solid var(--border-gold); cursor: pointer;" onclick="closeAiMasterHub(); openAppSection('ইসলামিক ভিডিও');">
+                            <i class="fas fa-play-circle text-danger fs-5 mb-1"></i>
+                            <div class="fw-bold text-white" style="font-size: 12px;">ইসলামিক ভিডিও</div>
+                        </div>
+                    </div>
+
+                    <!-- ২৬. ইসলামিক রেডিও -->
+                    <div class="col-6">
+                        <div class="p-2 rounded text-center h-100" style="background: var(--card-green-light); border: 1px solid var(--border-gold); cursor: pointer;" onclick="closeAiMasterHub(); openAppSection('ইসলামিক রেডিও');">
+                            <i class="fas fa-broadcast-tower text-success fs-5 mb-1"></i>
+                            <div class="fw-bold text-white" style="font-size: 12px;">ইসলামিক রেডিও</div>
+                        </div>
+                    </div>
+
+                    <!-- ২৭. ইসলামিক গজল -->
+                    <div class="col-6">
+                        <div class="p-2 rounded text-center h-100" style="background: var(--card-green-light); border: 1px solid var(--border-gold); cursor: pointer;" onclick="closeAiMasterHub(); openAppSection('ইসলামিক গজল');">
+                            <i class="fas fa-music text-warning fs-5 mb-1"></i>
+                            <div class="fw-bold text-white" style="font-size: 12px;">ইসলামিক গজল</div>
+                        </div>
+                    </div>
+
+                    <!-- ২৮. ওয়াজ মাহফিল -->
+                    <div class="col-6">
+                        <div class="p-2 rounded text-center h-100" style="background: var(--card-green-light); border: 1px solid var(--border-gold); cursor: pointer;" onclick="closeAiMasterHub(); openAppSection('ওয়াজ মাহফিল');">
+                            <i class="fas fa-microphone-alt text-warning fs-5 mb-1"></i>
+                            <div class="fw-bold text-white" style="font-size: 12px;">ওয়াজ মাহফিল</div>
+                        </div>
+                    </div>
+
+                    <!-- ২৯. দোয়া ও আমল -->
+                    <div class="col-6">
+                        <div class="p-2 rounded text-center h-100" style="background: var(--card-green-light); border: 1px solid var(--border-gold); cursor: pointer;" onclick="closeAiMasterHub(); openAppSection('দোয়া ও আমল');">
+                            <i class="fas fa-hand-holding-heart text-danger fs-5 mb-1"></i>
+                            <div class="fw-bold text-white" style="font-size: 12px;">দোয়া ও আমল</div>
+                        </div>
+                    </div>
+
+                    <!-- ৩০. নবীদের জীবনী -->
+                    <div class="col-6">
+                        <div class="p-2 rounded text-center h-100" style="background: var(--card-green-light); border: 1px solid var(--border-gold); cursor: pointer;" onclick="closeAiMasterHub(); openAppSection('নবীদের জীবনী');">
+                            <i class="fas fa-user-shield text-info fs-5 mb-1"></i>
+                            <div class="fw-bold text-white" style="font-size: 12px;">নবীদের জীবনী</div>
+                        </div>
+                    </div>
+
+                    <!-- ৩১. ইসলামিক ইতিহাস -->
+                    <div class="col-6">
+                        <div class="p-2 rounded text-center h-100" style="background: var(--card-green-light); border: 1px solid var(--border-gold); cursor: pointer;" onclick="closeAiMasterHub(); openAppSection('ইসলামিক ইতিহাস');">
+                            <i class="fas fa-landmark text-warning fs-5 mb-1"></i>
+                            <div class="fw-bold text-white" style="font-size: 12px;">ইসলামিক ইতিহাস</div>
+                        </div>
+                    </div>
+
+                    <!-- ৩২. নোটিশ / বিজ্ঞপ্তি -->
+                    <div class="col-6">
+                        <div class="p-2 rounded text-center h-100" style="background: var(--card-green-light); border: 1px solid var(--border-gold); cursor: pointer;" onclick="closeAiMasterHub(); openAppSection('নোটিশ');">
+                            <i class="fas fa-bell text-warning fs-5 mb-1"></i>
+                            <div class="fw-bold text-white" style="font-size: 12px;">বিশেষ বিজ্ঞপ্তি</div>
+                        </div>
+                    </div>
+
+                    <!-- ৩৩. প্রজেক্টে অনুদান দিন -->
+                    <div class="col-6">
+                        <div class="p-2 rounded text-center h-100" style="background: var(--card-green-light); border: 1px solid var(--border-gold); cursor: pointer;" onclick="closeAiMasterHub(); openAppSection('প্রজেক্টে অনুদান দিন');">
+                            <i class="fas fa-hand-holding-usd text-danger fs-5 mb-1"></i>
+                            <div class="fw-bold text-white" style="font-size: 12px;">প্রজেক্টে অনুদান</div>
+                        </div>
+                    </div>
+
+                    <!-- ৩৪. সাদাকাহ জারিয়াহ -->
+                    <div class="col-6">
+                        <div class="p-2 rounded text-center h-100" style="background: var(--card-green-light); border: 1px solid var(--border-gold); cursor: pointer;" onclick="closeAiMasterHub(); openAppSection('সাদাকাহ জারিয়াহ হিসেবে সওয়াব অর্জন করুন');">
+                            <i class="fas fa-donate text-warning fs-5 mb-1"></i>
+                            <div class="fw-bold text-white" style="font-size: 12px;">সাদাকাহ জারিয়াহ</div>
+                        </div>
+                    </div>
+
+                    <!-- ৩৫. প্রাইভেসি পলিসি -->
+                    <div class="col-6">
+                        <div class="p-2 rounded text-center h-100" style="background: var(--card-green-light); border: 1px solid var(--border-gold); cursor: pointer;" onclick="closeAiMasterHub(); openAppSection('প্রাইভেসি পলিসি');">
+                            <i class="fas fa-user-lock text-info fs-5 mb-1"></i>
+                            <div class="fw-bold text-white" style="font-size: 12px;">প্রাইভেসি পলিসি</div>
+                        </div>
+                    </div>
+
+                    <!-- ৩৬. আমাদের সম্পর্কে -->
+                    <div class="col-6">
+                        <div class="p-2 rounded text-center h-100" style="background: var(--card-green-light); border: 1px solid var(--border-gold); cursor: pointer;" onclick="closeAiMasterHub(); openAppSection('আমাদের সম্পর্কে');">
+                            <i class="fas fa-info-circle text-warning fs-5 mb-1"></i>
+                            <div class="fw-bold text-white" style="font-size: 12px;">আমাদের সম্পর্কে</div>
+                        </div>
+                    </div>
+
+                    <!-- ৩৭. যোগাযোগ -->
+                    <div class="col-6">
+                        <div class="p-2 rounded text-center h-100" style="background: var(--card-green-light); border: 1px solid var(--border-gold); cursor: pointer;" onclick="closeAiMasterHub(); openAppSection('যোগাযোগ');">
+                            <i class="fas fa-headset text-success fs-5 mb-1"></i>
+                            <div class="fw-bold text-white" style="font-size: 12px;">যোগাযোগ</div>
+                        </div>
+                    </div>
+
+                    <!-- ৩৮. হোম স্ক্রিন -->
+                    <div class="col-6">
+                        <div class="p-2 rounded text-center h-100" style="background: var(--card-green-light); border: 1px solid var(--border-gold); cursor: pointer;" onclick="closeAiMasterHub(); openAppSection('হোম');">
+                            <i class="fas fa-home text-warning fs-5 mb-1"></i>
+                            <div class="fw-bold text-white" style="font-size: 12px;">হোম স্ক্রিন</div>
+                        </div>
+                    </div>
+
+                    <!-- ৩৯. নামাজ পেজ -->
+                    <div class="col-6">
+                        <div class="p-2 rounded text-center h-100" style="background: var(--card-green-light); border: 1px solid var(--border-gold); cursor: pointer;" onclick="closeAiMasterHub(); openAppSection('নামাজ');">
+                            <i class="fas fa-kaaba text-warning fs-5 mb-1"></i>
+                            <div class="fw-bold text-white" style="font-size: 12px;">নামাজ ট্র্যাকার</div>
+                        </div>
+                    </div>
+
+                    <!-- ৪০. আমল রুটিন -->
+                    <div class="col-6">
+                        <div class="p-2 rounded text-center h-100" style="background: var(--card-green-light); border: 1px solid var(--border-gold); cursor: pointer;" onclick="closeAiMasterHub(); openAppSection('আমল রুটিন');">
+                            <i class="fas fa-clipboard-check text-info fs-5 mb-1"></i>
+                            <div class="fw-bold text-white" style="font-size: 12px;">আমল রিপোর্ট</div>
+                        </div>
+                    </div>
+
+                    <!-- ৪১. রমজান ও সাহরী-ইফতার -->
+                    <div class="col-6">
+                        <div class="p-2 rounded text-center h-100" style="background: var(--card-green-light); border: 1px solid var(--border-gold); cursor: pointer;" onclick="closeAiMasterHub(); openAppSection('রমজান');">
+                            <i class="fas fa-cloud-moon text-warning fs-5 mb-1"></i>
+                            <div class="fw-bold text-white" style="font-size: 12px;">সাহরী ও ইফতার</div>
+                        </div>
+                    </div>
+
+                    <!-- ৪২. র‍্যাংকিং / লিডারবোর্ড -->
+                    <div class="col-6">
+                        <div class="p-2 rounded text-center h-100" style="background: var(--card-green-light); border: 1px solid var(--border-gold); cursor: pointer;" onclick="closeAiMasterHub(); openAppSection('র‍্যাংকিং');">
+                            <i class="fas fa-award text-warning fs-5 mb-1"></i>
+                            <div class="fw-bold text-white" style="font-size: 12px;">র‍্যাংকিং লিডারবোর্ড</div>
+                        </div>
+                    </div>
+
+                    <!-- ৪৩. সরাসরি সাপোর্ট চ্যাট -->
+                    <div class="col-12">
+                        <div class="p-2 rounded text-center h-100" style="background: var(--card-green-light); border: 1.5px solid var(--gold-accent); cursor: pointer;" onclick="closeAiMasterHub(); toggleChatWindow();">
+                            <i class="fas fa-comment-dots text-warning fs-5 mb-1"></i>
+                            <div class="fw-bold text-white" style="font-size: 12px;">লাইভ সাপোর্ট চ্যাট</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="modal-footer border-0 pt-0 text-center justify-content-center">
+                <small class="text-white-50" style="font-size: 10px;">Developed By <strong>Meraz Digital Studio</strong></small>
+            </div>
+        </div>
+    </div>
+</div>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
+// =========================================================================
+// === COMPLETE AUTONOMOUS ISLAMIC AI ENGINE (ALL 43 OPTIONS FULLY MAPPED) ===
+// =========================================================================
+
+/**
+ * সেন্ট্রালাইজড মাস্টার রাউটার - ৪৩টি অপশনের প্রতিটি এখানে হ্যান্ডেল করা হয়েছে
+ * @param {string} targetKey 
+ */
+window.openAppSection = function(targetKey) {
+    if (!targetKey) return;
+    
+    // চালু থাকা যেকোনো অডিও, প্লেয়ার, কুইজ ও সেন্সর রিসেট করা
+    if (typeof stopPlayer === 'function') stopPlayer();
+    if (typeof closeLiveQuiz === 'function') closeLiveQuiz();
+    if (typeof stopCompassSensor === 'function') stopCompassSensor();
+    if (typeof stopQuranAudio === 'function') stopQuranAudio();
+    if (typeof stopAiSpeech === 'function') stopAiSpeech();
+
+    // টেক্সট নরমালাইজেশন
+    const key = targetKey.toString().toLowerCase().trim().replace(/[,\s]+/g, ' ');
+
+    switch (key) {
+        // ১. নোটিশ
+        case 'নোটিশ':
+        case 'notice':
+        case 'বিজ্ঞপ্তি':
+            if (typeof showNextPopup === 'function') {
+                showNextPopup();
+            } else {
+                new bootstrap.Modal(document.getElementById('noticeModal')).show();
+            }
+            break;
+
+        // ২. ইসলামিক ভিডিও
+        case 'ইসলামিক ভিডিও':
+        case 'ভিডিও':
+        case 'video':
+            openCategory('video', 'ইসলামিক ভিডিও');
+            break;
+
+        // ৩. ইসলামিক রেডিও
+        case 'ইসলামিক রেডিও':
+        case 'রেডিও':
+        case 'radio':
+            openCategory('radio', 'ইসলামিক রেডিও');
+            break;
+
+        // ৪. ইসলামিক কুইজ
+        case 'ইসলামিক কুইজ':
+        case 'কুইজ':
+        case 'quiz':
+            openCategory('quiz', 'লাইভ কুইজ প্রতিযোগিতা');
+            break;
+
+        // ৫. রোজা
+        case 'রোজা':
+        case 'roza':
+            openCategory('ramadan', 'সাহরী ও ইফতার');
+            break;
+
+        // ৬. ইসলামিক টিভি
+        case 'ইসলামিক টিভি':
+        case 'টিভি':
+        case 'tv':
+            openCategory('tv', 'ইসলামিক টিভি লাইভ');
+            break;
+
+        // ৭. ইসলামিক গজল
+        case 'ইসলামিক গজল':
+        case 'গজল':
+        case 'gojol':
+        case 'nasheed':
+            openCategory('gojol', 'ইসলামিক গজল ও নাশিদ');
+            break;
+
+        // ৮. ওয়াজ মাহফিল
+        case 'ওয়াজ মাহফিল':
+        case 'ওয়াজ':
+        case 'waz':
+            openCategory('waz', 'ওয়াজ মাহফিল');
+            break;
+
+        // ৯. দোয়া ও আমল
+        case 'দোয়া ও আমল':
+        case 'আমল':
+            openCategory('dua_amol', 'দোয়া ও আমল');
+            break;
+
+        // ১০. নবীদের জীবনী
+        case 'নবীদের জীবনী':
+        case 'নবীর জীবনী':
+        case 'prophets':
+            openCategory('nobider_jiboni', 'নবীদের জীবনী');
+            break;
+
+        // ১১. ইসলামিক ইতিহাস
+        case 'ইসলামিক ইতিহাস':
+        case 'ইতিহাস':
+        case 'history':
+            openCategory('history', 'ইসলামিক ইতিহাস');
+            break;
+
+        // ১২. সহিহ হাদিস
+        case 'সহিহ হাদিস':
+        case 'হাদিস':
+        case 'hadith':
+            openCategory('hadith', 'সহিহ হাদিস');
+            break;
+
+        // ১৩. আল-কোরআন
+        case 'আল-কোরআন':
+        case 'কোরআন':
+        case 'কুরআন':
+        case 'quran':
+            openCategory('quran', 'আল-কোরআন (১১৪ সূরা)');
+            break;
+
+        // ১৪. রমজান স্পেশাল
+        case 'রমজান স্পেশাল':
+            openCategory('ramadan', 'সাহরী ও ইফতার');
+            break;
+
+        // ১৫. নামাজের সময়
+        case 'নামাজের সময়':
+            openPrayerPage();
+            break;
+
+        // ১৬. আজকের 5 ওয়াক্ত নামাজ
+        case 'আজকের 5 ওয়াক্ত নামাজ':
+        case 'আজকের ৫ ওয়াক্ত নামাজ':
+        case '৫ ওয়াক্ত নামাজ':
+            openPrayerPage();
+            break;
+
+        // ১৭. দৈনিক রুটিন
+        case 'দৈনিক রুটিন':
+            openRoutinePage();
+            break;
+
+        // ১৮. আজকের আমল ও রুটিন
+        case 'আজকের আমল ও রুটিন':
+            openRoutinePage();
+            break;
+
+        // ১৯. ডিজিটাল তসবিহ
+        case 'ডিজিটাল তসবিহ':
+        case 'তসবিহ':
+        case 'tasbih':
+            openTasbihPage();
+            break;
+
+        // ২০. সহজ জিকির ও দোয়া গণক
+        case 'সহজ জিকির ও দোয়া গণক':
+        case 'জিকির গণক':
+            openTasbihPage();
+            break;
+
+        // ২১. কিবলা কম্পাস
+        case 'কিবলা কম্পাস':
+        case 'কিবলা':
+        case 'compass':
+            openCompassPage();
+            break;
+
+        // ২২. সঠিক কিবলা দিক নির্ণয়
+        case 'সঠিক কিবলা দিক নির্ণয়':
+        case 'কিবলার দিক':
+            openCompassPage();
+            break;
+
+        // ২৩. ইসলামিক ইতিহাস ও সহিহ হাদিস AI
+        case 'ইসলামিক ইতিহাস ও সহিহ হাদিস ai':
+        case 'ইসলামিক ai':
+        case 'ai':
+            openAiChatPage();
+            break;
+
+        // ২৪. যেকোনো ধরনের ইসলামিক জ্ঞান অর্জন করতে প্রশ্ন করুন
+        case 'যেকোনো ধরনের ইসলামিক জ্ঞান অর্জন করতে প্রশ্ন করুন':
+        case 'ইসলামিক প্রশ্ন':
+            openAiChatPage();
+            break;
+
+        // ২৫. মাসনুন দোয়া
+        case 'মাসনুন দোয়া':
+        case 'masnun dua':
+            openDuaPage();
+            break;
+
+        // ২৬. প্রতিদিনের প্রয়োজনীয় দোয়া ও আমল
+        case 'প্রতিদিনের প্রয়োজনীয় দোয়া ও আমল':
+        case 'প্রয়োজনীয় দোয়া':
+            openDuaPage();
+            break;
+
+        // ২৭. রুকইয়াহ শারইয়াহ
+        case 'রুকইয়াহ শারইয়াহ':
+        case 'রুকইয়াহ':
+        case 'ruqyah':
+            openRuqyahPage();
+            break;
+
+        // ২৮. কুরআন ও সুন্নাহর মাধ্যমে আত্মিক নিরাময়
+        case 'কুরআন ও সুন্নাহর মাধ্যমে আত্মিক নিরাময়':
+        case 'আত্মিক নিরাময়':
+            openRuqyahPage();
+            break;
+
+        // ২৯. আসমাউল হুসনা
+        case 'আসমাউল হুসনা':
+        case 'asma':
+            openAsmaUlHusnaPage();
+            break;
+
+        // ৩০. আল্লাহর ৯৯টি পবিত্র নাম ও ব্যাখ্যা
+        case 'আল্লাহর ৯৯টি পবিত্র নাম ও ব্যাখ্যা':
+        case 'আল্লাহর ৯৯ নাম':
+            openAsmaUlHusnaPage();
+            break;
+
+        // ৩১. যাকাত নিসাব ও হিসাব
+        case 'যাকাত নিসাব ও হিসাব':
+        case 'যাকাত ক্যালকুলেটর':
+        case 'zakat':
+            openZakatPage();
+            break;
+
+        // ৩২. নিসাব পরীক্ষা এবং যাকাত ক্যালকুলেটর
+        case 'নিসাব পরীক্ষা এবং যাকাত ক্যালকুলেটর':
+        case 'নিসাব পরীক্ষা':
+            openZakatPage();
+            break;
+
+        // ৩৩. প্রজেক্টে অনুদান দিন
+        case 'প্রজেক্টে অনুদান দিন':
+        case 'অনুদান':
+        case 'donate':
+            openDonatePage();
+            break;
+
+        // ৩৪. সাদাকাহ জারিয়াহ হিসেবে সওয়াব অর্জন করুন
+        case 'সাদাকাহ জারিয়াহ হিসেবে সওয়াব অর্জন করুন':
+        case 'সাদাকাহ জারিয়াহ':
+            openDonatePage();
+            break;
+
+        // ৩৫. প্রাইভেসি পলিসি
+        case 'প্রাইভেসি পলিসি':
+        case 'privacy':
+            openStaticPage('page_privacy', 'প্রাইভেসি পলিসি');
+            break;
+
+        // ৩৬. আমাদের সম্পর্কে
+        case 'আমাদের সম্পর্কে':
+        case 'about':
+            openStaticPage('page_about', 'আমাদের সম্পর্কে');
+            break;
+
+        // ৩৭. যোগাযোগ
+        case 'যোগাযোগ':
+        case 'contact':
+            openStaticPage('page_contact', 'যোগাযোগ');
+            break;
+
+        // ৩৮. হোম
+        case 'হোম':
+        case 'home':
+            goHome();
+            break;
+
+        // ৩৯. নামাজ
+        case 'নামাজ':
+        case 'prayer':
+            openPrayerPage();
+            break;
+
+        // ৪০. আমল রুটিন
+        case 'আমল রুটিন':
+        case 'routine':
+            openRoutinePage();
+            break;
+
+        // ৪১. রমজান
+        case 'রমজান':
+        case 'ramadan':
+            openCategory('ramadan', 'সাহরী ও ইফতার');
+            break;
+
+        // ৪২. র‍্যাংকিং
+        case 'র‍্যাংকিং':
+        case 'লিডারবোর্ড':
+        case 'ranking':
+        case 'leaderboard':
+            openLeaderboard();
+            break;
+
+        default:
+            console.log("ডিরেক্ট অ্যাকশন না পেয়ে স্মার্ট সার্চ চালানো হচ্ছে: ", targetKey);
+            AutonomousIslamicAI.executeSmartMatch(targetKey);
+            break;
+    }
+};
+
+// =========================================================================
+// === অটোনোমাস এআই ভয়েস ও স্মার্ট ম্যাচিং প্রসেসর ===
+// =========================================================================
+window.AutonomousIslamicAI = {
+    showAiNotification: function(msg) {
+        let toast = document.getElementById('copyToast');
+        if (!toast) {
+            toast = document.createElement('div');
+            toast.id = 'copyToast';
+            toast.className = 'copy-toast';
+            document.body.appendChild(toast);
+        }
+        toast.innerHTML = `<i class="fas fa-robot text-dark me-1"></i> ${msg}`;
+        toast.classList.add('show');
+        if (navigator.vibrate) navigator.vibrate([40]);
+        setTimeout(() => toast.classList.remove('show'), 3000);
+    },
+
+    executeAppTask: function(command) {
+        if (!command) return;
+        this.executeSmartMatch(command);
+    },
+
+    executeSmartMatch: function(query) {
+        const text = query.toLowerCase().trim();
+
+        if (text.includes("নামাজ") || text.includes("ওয়াক্ত") || text.includes("আজান")) {
+            this.showAiNotification("নামাজের সময়সূচী খোলা হচ্ছে...");
+            window.openAppSection('নামাজের সময়');
+        } else if (text.includes("কোরআন") || text.includes("কুরআন") || text.includes("সূরা") || text.includes("তেলাওয়াত")) {
+            this.showAiNotification("আল-কোরআন খোলা হচ্ছে...");
+            window.openAppSection('আল-কোরআন');
+        } else if (text.includes("হাদিস") || text.includes("বুখারী") || text.includes("মুসলিম") || text.includes("তিরমিযী")) {
+            this.showAiNotification("সহিহ হাদিস খোলা হচ্ছে...");
+            window.openAppSection('সহিহ হাদিস');
+        } else if (text.includes("রমজান") || text.includes("রোজা") || text.includes("সাহরী") || text.includes("ইফতার")) {
+            this.showAiNotification("সাহরী ও ইফতার সময়সূচী খোলা হচ্ছে...");
+            window.openAppSection('রমজান স্পেশাল');
+        } else if (text.includes("রুটিন") || text.includes("আমল")) {
+            this.showAiNotification("দৈনিক আমল রুটিন খোলা হচ্ছে...");
+            window.openAppSection('দৈনিক রুটিন');
+        } else if (text.includes("তসবিহ") || text.includes("জিকির") || text.includes("গণক")) {
+            this.showAiNotification("ডিজিটাল তসবিহ খোলা হচ্ছে...");
+            window.openAppSection('ডিজিটাল তসবিহ');
+        } else if (text.includes("কিবলা") || text.includes("কম্পাস") || text.includes("কাবা")) {
+            this.showAiNotification("কিবলা কম্পাস খোলা হচ্ছে...");
+            window.openAppSection('কিবলা কম্পাস');
+        } else if (text.includes("মাসনুন") || text.includes("দোয়া")) {
+            this.showAiNotification("মাসনুন দোয়া খোলা হচ্ছে...");
+            window.openAppSection('মাসনুন দোয়া');
+        } else if (text.includes("রুকইয়াহ") || text.includes("যাদু") || text.includes("জিন") || text.includes("নজর")) {
+            this.showAiNotification("রুকইয়াহ শারইয়াহ খোলা হচ্ছে...");
+            window.openAppSection('রুকইয়াহ শারইয়াহ');
+        } else if (text.includes("৯৯") || text.includes("আসমাউল") || text.includes("নাম")) {
+            this.showAiNotification("আসমাউল হুসনা খোলা হচ্ছে...");
+            window.openAppSection('আসমাউল হুসনা');
+        } else if (text.includes("যাকাত") || text.includes("নিসাব") || text.includes("স্বর্ণ") || text.includes("রূপা")) {
+            this.showAiNotification("যাকাত ক্যালকুলেটর খোলা হচ্ছে...");
+            window.openAppSection('যাকাত নিসাব ও হিসাব');
+        } else if (text.includes("অনুদান") || text.includes("দান") || text.includes("সাদাকাহ") || text.includes("বিকাশ") || text.includes("নগদ")) {
+            this.showAiNotification("অনুদান পেজ খোলা হচ্ছে...");
+            window.openAppSection('প্রজেক্টে অনুদান দিন');
+        } else if (text.includes("কুইজ") || text.includes("প্রতিযোগিতা")) {
+            this.showAiNotification("ইসলামিক কুইজ খোলা হচ্ছে...");
+            window.openAppSection('ইসলামিক কুইজ');
+        } else if (text.includes("টিভি") || text.includes("লাইভ টিভি")) {
+            this.showAiNotification("ইসলামিক টিভি খোলা হচ্ছে...");
+            window.openAppSection('ইসলামিক টিভি');
+        } else if (text.includes("ভিডিও")) {
+            this.showAiNotification("ইসলামিক ভিডিও খোলা হচ্ছে...");
+            window.openAppSection('ইসলামিক ভিডিও');
+        } else if (text.includes("রেডিও")) {
+            this.showAiNotification("ইসলামিক রেডিও খোলা হচ্ছে...");
+            window.openAppSection('ইসলামিক রেডিও');
+        } else if (text.includes("গজল") || text.includes("নাশিদ")) {
+            this.showAiNotification("ইসলামিক গজল খোলা হচ্ছে...");
+            window.openAppSection('ইসলামিক গজল');
+        } else if (text.includes("ওয়াজ")) {
+            this.showAiNotification("ওয়াজ মাহফিল খোলা হচ্ছে...");
+            window.openAppSection('ওয়াজ মাহফিল');
+        } else if (text.includes("নবী") || text.includes("জীবনী")) {
+            this.showAiNotification("নবীদের জীবনী খোলা হচ্ছে...");
+            window.openAppSection('নবীদের জীবনী');
+        } else if (text.includes("ইতিহাস")) {
+            this.showAiNotification("ইসলামিক ইতিহাস খোলা হচ্ছে...");
+            window.openAppSection('ইসলামিক ইতিহাস');
+        } else if (text.includes("র‍্যাংকিং") || text.includes("লিডারবোর্ড") || text.includes("পয়েন্ট")) {
+            this.showAiNotification("র‍্যাংকিং লিডারবোর্ড খোলা হচ্ছে...");
+            window.openAppSection('র‍্যাংকিং');
+        } else if (text.includes("নোটিশ") || text.includes("বিজ্ঞপ্তি")) {
+            this.showAiNotification("বিজ্ঞপ্তি খোলা হচ্ছে...");
+            window.openAppSection('নোটিশ');
+        } else if (text.includes("পলিসি") || text.includes("প্রাইভেসি")) {
+            window.openAppSection('প্রাইভেসি পলিসি');
+        } else if (text.includes("সম্পর্কে") || text.includes("পরিচিতি")) {
+            window.openAppSection('আমাদের সম্পর্কে');
+        } else if (text.includes("যোগাযোগ") || text.includes("হেল্প") || text.includes("সাপোর্ট")) {
+            window.openAppSection('যোগাযোগ');
+        } else {
+            // যদি সরাসরি কোনো মেনু না মেলে, তাহলে ইসলামিক এআই চ্যাটবটে প্রশ্ন হিসেবে পাঠানো হবে
+            this.showAiNotification("এআই উত্তর খুঁজছে...");
+            window.openAppSection('ইসলামিক ইতিহাস ও সহিহ হাদিস ai');
+            setTimeout(() => {
+                const input = document.getElementById('aiMsgInput');
+                if (input) {
+                    input.value = query;
+                    if (typeof sendAiMessage === 'function') sendAiMessage();
+                }
+            }, 600);
+        }
+    }
+};
+// ==========================================
+// === AI MASTER HUB MODAL & VOICE HANDLERS ===
+// ==========================================
+window.openAiMasterHub = function() {
+    const modalEl = document.getElementById('aiMasterHubModal');
+    if (modalEl) {
+        const hubModal = bootstrap.Modal.getOrCreateInstance(modalEl);
+        hubModal.show();
+    }
+};
+
+window.closeAiMasterHub = function() {
+    const modalEl = document.getElementById('aiMasterHubModal');
+    if (modalEl) {
+        const hubModal = bootstrap.Modal.getInstance(modalEl);
+        if (hubModal) hubModal.hide();
+    }
+};
+
+window.startAiVoiceNow = function() {
+    window.closeAiMasterHub();
+    if (!aiRecognition) {
+        alert("আপনার ব্রাউজারে মাইক্রোফোন ভয়েস সেন্সর সাপোর্ট করছে না।");
+        return;
+    }
+    
+    AutonomousIslamicAI.showAiNotification("শুনছি... আপনার কমান্ড বলুন...");
+    try {
+        aiRecognition.start();
+        aiRecognition.onresult = function(event) {
+            const transcript = event.results[0][0].transcript;
+            stopAiListening();
+            AutonomousIslamicAI.executeSmartMatch(transcript);
+        };
+    } catch(e) {
+        aiRecognition.stop();
+    }
+};
         // === Service Worker ===
         if ('serviceWorker' in navigator) { window.addEventListener('load', () => { navigator.serviceWorker.register('./sw.js').catch(err => console.log('SW', err)); }); }
         window.addEventListener('offline', () => document.getElementById('offline-badge').style.display = 'block');
@@ -3025,6 +3938,134 @@ function startLiveDateTime() {
         };
 
         function checkAndTriggerAzan(pName, timeStr) {
+// =========================================================================
+// === AUTONOMOUS AZAN ALARM & BACKGROUND ENGINE ===
+// =========================================================================
+
+let azanAlarmConfig = JSON.parse(localStorage.getItem('azan_alarm_config')) || {
+    soundUrl: "https://files.catbox.moe/jerp9o.mp3",
+    prayers: { Fajr: true, Dhuhr: true, Asr: true, Maghrib: true, Isha: true }
+};
+
+// ১. নোটিফিকেশন ও অ্যালার্ম পারমিশন চাওয়া
+window.requestAzanAlarmPermission = async function() {
+    if (!("Notification" in window)) {
+        alert("আপনার ব্রাউজারে নোটিফিকেশন সাপোর্ট নেই।");
+        return;
+    }
+    
+    // অডিও আনলক করার জন্য টেস্ট সাউন্ড চালানো
+    unlockAudioContext();
+
+    const permission = await Notification.requestPermission();
+    if (permission === "granted") {
+        document.getElementById('btnAlarmPermission').innerHTML = '<i class="fas fa-check-circle"></i> পারমিশন চালু';
+        document.getElementById('btnAlarmPermission').className = "btn btn-sm btn-success fw-bold px-3 py-1";
+        
+        // সার্ভিস ওয়ার্কার রেজিস্ট্রি ও শেডিউল অ্যালার্ম
+        if (navigator.serviceWorker && navigator.serviceWorker.controller) {
+            scheduleServiceWorkerAlarms();
+        }
+        alert("মাশাআল্লাহ! ব্যাকগ্রাউন্ড আজান ও নোটিফিকেশন পারমিশন সফলভাবে সক্রিয় হয়েছে।");
+    } else {
+        alert("নোটিফিকেশন পারমিশন ছাড়া অ্যাপ ব্যাকগ্রাউন্ডে অ্যালার্ম দিতে পারবে না। ব্রাউজার সেটিংসে গিয়ে পারমিশন চালু করুন।");
+    }
+};
+
+// ২. মোবাইল ব্রাউজারের অডিও রেস্ট্রিকশন আনলক
+function unlockAudioContext() {
+    const player = document.getElementById('azanAudioPlayer');
+    if (player) {
+        player.play().then(() => {
+            player.pause();
+            player.currentTime = 0;
+        }).catch(() => {});
+    }
+}
+
+// ৩. আজান সাউন্ড ও সেটিংস সেভ করা
+window.changeAzanSoundPreset = function() {
+    const select = document.getElementById('azanSoundSelect');
+    azanAlarmConfig.soundUrl = select.value;
+    
+    const player = document.getElementById('azanAudioPlayer');
+    if (player && select.value !== 'beep' && select.value !== 'takbeer') {
+        player.src = select.value;
+    }
+    saveAzanAlarmConfig();
+};
+
+window.saveAzanAlarmConfig = function() {
+    azanAlarmConfig.prayers.Fajr = document.getElementById('alarmToggle-Fajr').checked;
+    azanAlarmConfig.prayers.Dhuhr = document.getElementById('alarmToggle-Dhuhr').checked;
+    azanAlarmConfig.prayers.Asr = document.getElementById('alarmToggle-Asr').checked;
+    azanAlarmConfig.prayers.Maghrib = document.getElementById('alarmToggle-Maghrib').checked;
+    azanAlarmConfig.prayers.Isha = document.getElementById('alarmToggle-Isha').checked;
+
+    localStorage.setItem('azan_alarm_config', JSON.stringify(azanAlarmConfig));
+    scheduleServiceWorkerAlarms();
+};
+
+// ৪. সার্ভিস ওয়ার্কারের সাথে অ্যালার্ম ডাটা সিঙ্ক করা
+function scheduleServiceWorkerAlarms() {
+    if (!navigator.serviceWorker || !navigator.serviceWorker.controller) return;
+
+    // ক্যাশ করা বর্তমান ওয়াক্তের সময় সংগ্রহ
+    const city = document.getElementById('districtSelect') ? document.getElementById('districtSelect').value : 'Dhaka';
+    const cached = localStorage.getItem('prayer_' + city) || localStorage.getItem('manual_prayer_times');
+    
+    if (cached) {
+        const times = JSON.parse(cached);
+        navigator.serviceWorker.controller.postMessage({
+            type: 'SCHEDULE_AZAN_ALARMS',
+            prayerTimes: times,
+            config: azanAlarmConfig
+        });
+    }
+}
+
+// ৫. ফোরগ্রাউন্ডে থাকাকালীন সময় প্রতি মিনিটে চেক ও অ্যালার্ম বাজানো
+setInterval(() => {
+    const now = new Date();
+    const currentHrs = String(now.getHours()).padStart(2, '0');
+    const currentMins = String(now.getMinutes()).padStart(2, '0');
+    const currentTimeStr = `${currentHrs}:${currentMins}`;
+    
+    const city = document.getElementById('districtSelect') ? document.getElementById('districtSelect').value : 'Dhaka';
+    const cached = localStorage.getItem('prayer_' + city) || localStorage.getItem('manual_prayer_times');
+    
+    if (cached) {
+        const times = JSON.parse(cached);
+        const prayerNamesBn = { Fajr: "ফজর", Dhuhr: "যোহর", Asr: "আসর", Maghrib: "মাগরিব", Isha: "এশা" };
+
+        Object.keys(prayerNamesBn).forEach(pKey => {
+            if (times[pKey] === currentTimeStr && azanAlarmConfig.prayers[pKey]) {
+                const todayKey = `${pKey}_${now.toDateString()}`;
+                if (!azanTriggeredToday[todayKey]) {
+                    azanTriggeredToday[todayKey] = true;
+                    
+                    // আজান সাউন্ড প্লে করা
+                    playAzanSound();
+                    
+                    // সিস্টেম নোটিফিকেশন প্রদর্শন
+                    if (Notification.permission === "granted") {
+                        navigator.serviceWorker.ready.then(reg => {
+                            reg.showNotification(`🕌 ${prayerNamesBn[pKey]} নামাজের সময় হয়েছে`, {
+                                body: `হাইয়া আলাস সালাহ্! ${prayerNamesBn[pKey]} নামাজের আজান হচ্ছে।`,
+                                icon: 'https://i.postimg.cc/FHVvfG5z/file-00000000fb648211abfa2eaedd541a82.png',
+                                badge: 'https://i.postimg.cc/FHVvfG5z/file-00000000fb648211abfa2eaedd541a82.png',
+                                vibrate: [300, 100, 300, 100, 500, 100, 500],
+                                tag: 'azan-alarm',
+                                renotify: true,
+                                requireInteraction: true
+                            });
+                        });
+                    }
+                }
+            }
+        });
+    }
+}, 10000); // প্রতি ১০ সেকেন্ডে চেক করবে
             if (!timeStr || !azanSettings[pName]) return;
             
             const todayStr = new Date().toDateString();
